@@ -1,5 +1,5 @@
 const mongoose = require('../../_Database/dbconfig');
-
+const Assignment = require('../../Elements/Assignment/Assignment.model');
 const ModuleSchema = mongoose.Schema({
     Name: {
         type: String,
@@ -10,11 +10,11 @@ const ModuleSchema = mongoose.Schema({
         required: true
     },
     Year: {
-        type: String,
+        type: Number,
         required: true
     },
     Semester: {
-        type: String,
+        type: Number,
         required: true
     },
     Faculty: {
@@ -22,6 +22,10 @@ const ModuleSchema = mongoose.Schema({
         required: true
     },
     Assignments:{
+        type: [mongoose.Schema.Types.ObjectId] ,
+        ref: Assignment
+    },
+    Instructors:{
         type: [mongoose.Schema.Types.ObjectId]
     },
     Participants: {

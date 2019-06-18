@@ -1,0 +1,48 @@
+import React,{Component} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {BrowserRouter as Router,Route,Link} from "react-router-dom";
+
+import InstructorModules from './Instructor.modules.comp';
+import InstructorAssignments from './Instructor.assignments.comp';
+import InstructorExams from './Instructor.modules.comp';
+import InstructorEditProfile from './Instructor.editprofile.comp';
+import InstructorModuleStats from './Instructor.stats.comp';
+
+export default class InstructorHome extends Component{
+
+
+    render() {
+        return(
+            <Router>
+                <div className="container">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div className="collpase navbar-collapse">
+                            <ul className="navbar-nav mr-auto">
+                                <li className="navbar-item">
+                                    <Link to="/" className="nav-link">My Modules</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/assignments" className="nav-link">Assignments</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/exams" className="nav-link">Exams</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/edit-profile" className="nav-link">Edit Profile</Link>
+                                </li>
+                                <li className="navbar-item">
+                                    <Link to="/stats" className="nav-link">Statistics</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <Route path="/" exact component={InstructorModules} />
+                <Route path="/assignments" exact component={InstructorAssignments} />
+                <Route path="/exams" component={InstructorExams} />
+                <Route path="/edit-profile" component={InstructorEditProfile} />
+                <Route path="/stats" component={InstructorModuleStats}/>
+            </Router>
+        );
+    }
+}

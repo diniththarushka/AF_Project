@@ -16,9 +16,7 @@ const InstructorSchema = new mongoose.Schema({
     Faculty: {
         type: []
     },
-    Modules: {
-        type:[]
-    }
+    Modules: []
 });
 
 module.exports = mongoose.model('Instructor',InstructorSchema);

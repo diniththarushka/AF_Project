@@ -6,7 +6,7 @@ const ExamSchema = mongoose.Schema({
         required:true
     },
     Duration:{
-        type:Number,
+        type: Date,
         required:true
     },
     Module:{

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const Module = require('../Module/Module.model');
 const Instructor = require('./Instructor.model');
 
 router.get('/', (req, res) => {
@@ -21,6 +21,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+
+
     let reqObj = req.body;
     let InstructorObj = new Instructor({
         Name: reqObj.Name,
@@ -53,7 +55,7 @@ router.put('/:id', (req, res) => {
     })
 });
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id', (req, res) => {
     let id = req.params.id;
     Instructor.findByIdAndDelete(id).then(() => {
         res.status(200).send('Instructor deleted successfully');
@@ -62,94 +64,94 @@ router.delete('/:id',(req,res)=>{
     })
 });
 
-router.delete('/deleteModule/:id',(req,res)=>{ //for deleting modules of the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.delete('/deleteModule/:id', (req, res) => { //for deleting modules of the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let ModulesUpd = [];
-    Instructor.findById(id).then((instructor)=>{
+    Instructor.findById(id).then((instructor) => {
         ModulesUpd = instructor.Modules;
 
-        if(ModulesUpd.includes(reqBody.Module)){
+        if (ModulesUpd.includes(reqBody.Module)) {
             let index = ModulesUpd.indexOf(reqBody.Module);
-            ModulesUpd.splice(index,1);
+            ModulesUpd.splice(index, 1);
 
-            Instructor.findByIdAndUpdate(id,{Modules:ModulesUpd}).then(()=>{
+            Instructor.findByIdAndUpdate(id, {Modules: ModulesUpd}).then(() => {
                 res.status(200).send('Module deleted successfully');
-            }).catch((err)=>{
+            }).catch((err) => {
                 res.status(500).send('Module deleting failed. Error: ' + err);
             })
-        }else{
+        } else {
             res.status(500).send('Module not assigned to delete.');
         }
-    }).catch((err)=>{
+    }).catch((err) => {
         res.status(500).send('Instructor fetching failed. Error: ' + err);
     })
 });
 
-router.put('/addModule/:id',(req,res)=>{       //for adding modules to the schema element array one by one(should send req as {"Module":"module name"})
+router.put('/addModule/:id', (req, res) => {       //for adding modules to the schema element array one by one(should send req as {"Module":"module name"})
     let id = req.params.id;
     let reqBody = req.body;
     let ModulesUpd = [];
-    Instructor.findById(id).then((instructor)=>{
+    Instructor.findById(id).then((instructor) => {
         ModulesUpd = instructor.Modules;
 
-        if(ModulesUpd.includes(reqBody.Module)){
+        if (ModulesUpd.includes(reqBody.Module)) {
             res.status(500).send('Module is already assigned');
-        }else{
+        } else {
             ModulesUpd.push(reqBody.Module);
-            Instructor.findByIdAndUpdate(id,{Modules:ModulesUpd}).then(()=>{
+            Instructor.findByIdAndUpdate(id, {Modules: ModulesUpd}).then(() => {
                 res.status(200).send('Module added successfully');
-            }).catch((err)=>{
+            }).catch((err) => {
                 res.status(500).send('Module adding failed. Error: ' + err);
             })
         }
-    }).catch((err)=>{
+    }).catch((err) => {
         res.status(500).send('Instructor fetching failed. Error: ' + err);
     })
 });
 
-router.delete('/deleteFaculty/:id',(req,res)=>{ //for deleting multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.delete('/deleteFaculty/:id', (req, res) => { //for deleting multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let FacultiesUpd = [];
-    Instructor.findById(id).then((instructor)=>{
+    Instructor.findById(id).then((instructor) => {
         FacultiesUpd = instructor.Faculty;
 
-        if(FacultiesUpd.includes(reqBody.Faculty)){
+        if (FacultiesUpd.includes(reqBody.Faculty)) {
             let index = FacultiesUpd.indexOf(reqBody.Faculty);
-            FacultiesUpd.splice(index,1);
+            FacultiesUpd.splice(index, 1);
 
-            Instructor.findByIdAndUpdate(id,{Faculty:FacultiesUpd}).then(()=>{
+            Instructor.findByIdAndUpdate(id, {Faculty: FacultiesUpd}).then(() => {
                 res.status(200).send('Faculty deleted successfully');
-            }).catch((err)=>{
+            }).catch((err) => {
                 res.status(500).send('Faculty deleting failed. Error: ' + err);
             })
-        }else{
+        } else {
             res.status(500).send('Faculty not assigned to delete.');
         }
-    }).catch((err)=>{
+    }).catch((err) => {
         res.status(500).send('Instructor fetching failed. Error: ' + err);
     })
 });
 
-router.put('/addFaculty/:id',(req,res)=>{       //for adding multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.put('/addFaculty/:id', (req, res) => {       //for adding multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let FacultiesUpd = [];
-    Instructor.findById(id).then((instructor)=>{
+    Instructor.findById(id).then((instructor) => {
         FacultiesUpd = instructor.Faculty;
 
-        if(FacultiesUpd.includes(reqBody.Faculty)){
+        if (FacultiesUpd.includes(reqBody.Faculty)) {
             res.status(500).send('Faculty is already assigned');
-        }else{
+        } else {
             FacultiesUpd.push(reqBody.Faculty);
-            Instructor.findByIdAndUpdate(id,{Faculty:FacultiesUpd}).then(()=>{
+            Instructor.findByIdAndUpdate(id, {Faculty: FacultiesUpd}).then(() => {
                 res.status(200).send('Faculty added successfully');
-            }).catch((err)=>{
+            }).catch((err) => {
                 res.status(500).send('Faculty adding failed. Error: ' + err);
             })
         }
-    }).catch((err)=>{
+    }).catch((err) => {
         res.status(500).send('Instructor fetching failed. Error: ' + err);
     })
 });

@@ -11,6 +11,25 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/getByName/:name',(req,res)=>{
+    let name=req.params.name;
+
+    Assignment.findOne({Name:name}).then((assignments)=>{
+        res.status(200).json(assignments);
+    }).catch((err)=>{
+        res.status(500).send('Error: '+err);
+    })
+});
+
+router.get('/:id', (req, res) => {
+    let id=req.params.id;
+    Assignment.findById(id).then((assignments) => {
+        res.status(200).json(assignments);
+    }).catch((err) => {
+        res.status(500).send('Assignment fetching failed. Error: ' + err);
+    })
+});
+
 router.post('/', (req, res) => {
     let reqObj = req.body;
     let AssignmentObj = new Assignment({
@@ -19,8 +38,8 @@ router.post('/', (req, res) => {
         Module: reqObj.Module,
         DueDate: reqObj.DueDate
     });
-    AssignmentObj.save().then(() => {
-        res.status(200).send('Assignment successfully added.');
+    AssignmentObj.save().then((data) => {
+        res.status(200).json({message: 'Assignment successfully added.',ID:data._id});
     }).catch((err) => {
         res.status(500).send('Assignment adding failed. Error: ' + err);
     })
