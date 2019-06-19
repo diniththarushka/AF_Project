@@ -89,7 +89,7 @@ export default class AddAssignments extends Component {
 
         let today = new Date();
         let dd = today.getDate();
-        let mm = today.getMonth()+1; //January is 0!
+        let mm = today.getMonth()+1; // 0->January
         let yyyy = today.getFullYear();
         if(dd<10){
             dd='0'+dd

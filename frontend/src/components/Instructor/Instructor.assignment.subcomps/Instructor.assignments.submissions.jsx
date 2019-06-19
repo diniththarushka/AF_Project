@@ -81,7 +81,7 @@ export default class AssignmentSubmissions extends Component {
                 <form>
                     <div className="form-group row">
                         <label className="col-md-6 col-form-label">Module: </label>
-                        <select id="module" onChange={this.onChangeModule}>
+                        <select id="module" onClick={this.onChangeModule}>
                             {
                                 this.state.Modules.map((mod, i) => {
                                     return <option value={mod} key={i}>{mod}</option>

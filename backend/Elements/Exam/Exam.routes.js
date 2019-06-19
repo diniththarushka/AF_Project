@@ -19,6 +19,7 @@ router.post('/',(req,res)=>{
         Duration: reqObj.Duration,
         Module: reqObj.Module,
         AutoGrade: reqObj.AutoGrade,
+        Completed:false,
         QuestionBank: reqObj.QuestionBank
     });
 
@@ -29,4 +30,13 @@ router.post('/',(req,res)=>{
     })
 });
 
+router.put('/updateStatus/:id',(req,res)=>{
+    let id = req.params.id;
+    let reqObj = req.body;
+    Exam.findByIdAndUpdate(id,{Completed:reqObj.Completed}).then((exam)=>{
+        res.status(200).send('Exam: '+exam.Name+', is marked as completed');
+    }).catch((err)=>{
+        res.status(500).send('Error while updating Status: '+err);
+    })
+});
 module.exports = router;

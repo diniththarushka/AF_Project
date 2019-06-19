@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Module = require('../Module/Module.model');
 const Instructor = require('./Instructor.model');
 
 router.get('/', (req, res) => {
@@ -47,6 +46,21 @@ router.put('/:id', (req, res) => {
         Password: reqObj.Password,
         Faculty: reqObj.Faculty,
         Modules: reqObj.Modules
+    };
+    Instructor.findByIdAndUpdate(id, InstructorObj).then(() => {
+        res.status(200).send('Instructor updated successfully');
+    }).catch((err) => {
+        res.status(500).send('Instructor updating failed. Error: ' + err);
+    })
+});
+
+router.put('/update/:id', (req, res) => {
+    let id = req.params.id;
+    let reqObj = req.body;
+    let InstructorObj = {
+        Name: reqObj.Name,
+        Email: reqObj.Email,
+        Password: reqObj.Password
     };
     Instructor.findByIdAndUpdate(id, InstructorObj).then(() => {
         res.status(200).send('Instructor updated successfully');

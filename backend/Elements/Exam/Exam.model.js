@@ -6,7 +6,7 @@ const ExamSchema = mongoose.Schema({
         required:true
     },
     Duration:{
-        type: Date,
+        type: Number,
         required:true
     },
     Module:{
@@ -15,6 +15,10 @@ const ExamSchema = mongoose.Schema({
     },
     AutoGrade:{
         type: Boolean,
+        required:true
+    },
+    Completed:{
+        type:Boolean,
         required:true
     },
     QuestionBank:[{

@@ -4,7 +4,7 @@ import {BrowserRouter as Router,Route,Link} from "react-router-dom";
 
 import InstructorModules from './Instructor.modules.comp';
 import InstructorAssignments from './Instructor.assignments.comp';
-import InstructorExams from './Instructor.modules.comp';
+import InstructorExams from './Instructor.exams.comp';
 import InstructorEditProfile from './Instructor.editprofile.comp';
 import InstructorModuleStats from './Instructor.stats.comp';
 
