@@ -14,9 +14,7 @@ export default class HomeHandler extends Component{
                             <li className="navbar-item">
                                 <Link to="/" className="nav-link">Home</Link>
                             </li>
-                            <li className="navbar-item">
-                                <Link to="/register" className="nav-link">Register</Link>
-                            </li>
+
                             <li className="navbar-item" style={{position:"absolute",right:10}}>
                                 <Link to="/admin" className="nav-link">Admin Login</Link>
                             </li>
