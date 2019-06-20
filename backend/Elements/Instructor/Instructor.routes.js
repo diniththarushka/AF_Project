@@ -10,6 +10,21 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/login', (req, res) => {
+    let reqBody = req.body;
+    Instructor.findOne({
+        Email: reqBody.Email,
+        Password: reqBody.Password
+    }).then((user) => {
+        if (user)
+            res.status(200).json({result: true});
+        else
+            res.status(200).json({result: false});
+    }).catch(() => {
+        res.status(500).json({result: false});
+    })
+});
+
 router.get('/:id', (req, res) => {
     let id = req.params.id;
     Instructor.findById(id).then((instructor) => {
