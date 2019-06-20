@@ -11,12 +11,22 @@ router.get('/',(req,res)=>{
     })
 });
 
+router.get('/byModule/:name',(req,res)=>{
+    let name=req.params.name;
+    Exam.findOne({Module:name}).then((exams)=>{
+        res.status(200).json(exams);
+    }).catch((err)=>{
+        res.status(500).send('Exam fetching failed. Error: ' + err);
+    })
+});
+
 router.post('/',(req,res)=>{
     let reqObj = req.body;
 
     let ExamObj = new Exam({
         Name: reqObj.Name,
         Duration: reqObj.Duration,
+        EnrollmentKey:reqObj.EnrollmentKey,
         Module: reqObj.Module,
         AutoGrade: reqObj.AutoGrade,
         Completed:false,

@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import AddAssignments from './Instructor.assignment.subcomps/Instructor.assignments.add';
 import AssignmentSubmissions from './Instructor.assignment.subcomps/Instructor.assignments.submissions';
 import AssignmentUpdate from './Instructor.assignment.subcomps/Instructor.assignments.update';
+import DeleteModule from './Instructor.assignment.subcomps/Instructor.assignments.delete';
 
 export default class InstructorAssignments extends Component{
     render() {
@@ -21,6 +22,9 @@ export default class InstructorAssignments extends Component{
                     <div className="row">
                         <div style={{marginTop:10}} className="col-sm-6 bg-dark text-light rounded">
                             <AssignmentUpdate/>
+                        </div>
+                        <div style={{marginTop:10}} className="col-sm-6 bg-dark text-light rounded">
+                            <DeleteModule/>
                         </div>
                     </div>
 

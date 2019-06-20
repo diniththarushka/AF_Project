@@ -5,6 +5,10 @@ const ExamSchema = mongoose.Schema({
         type: String,
         required:true
     },
+    EnrollmentKey:{
+        type:String,
+        required:true
+    },
     Duration:{
         type: Number,
         required:true

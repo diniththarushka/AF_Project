@@ -11,6 +11,15 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/getByModule/:name', (req, res) => {
+    let name= req.params.name;
+    Assignment.find({Module: name}).then((assignments) => {
+        res.status(200).json(assignments);
+    }).catch((err) => {
+        res.status(500).send('Assignment fetching failed. Error: ' + err);
+    })
+});
+
 router.get('/getByName/:name',(req,res)=>{
     let name=req.params.name;
 

@@ -8,6 +8,7 @@ export default class AddExam extends Component {
         this.state = {
             Name: '',
             Duration: 0,
+            EnrollmentKey:'',
             Module: '',
             NumOfQuestions: 0,
             Modules: [],
@@ -20,12 +21,10 @@ export default class AddExam extends Component {
         };
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
+        this.onChangeEnrollmentKey = this.onChangeEnrollmentKey.bind(this);
         this.onChangeModule = this.onChangeModule.bind(this);
         this.onChangeAutoGrade = this.onChangeAutoGrade.bind(this);
-        this.onChangeQuestion = this.onChangeQuestion.bind(this);
-        this.onChangeAnswer = this.onChangeAnswer.bind(this);
         this.onChangeNumberofQuestions = this.onChangeNumberofQuestions.bind(this);
-        this.onChangeCorrectAnswer = this.onChangeCorrectAnswer.bind(this);
 
         this.generateTable = this.generateTable.bind(this);
 
@@ -47,6 +46,12 @@ export default class AddExam extends Component {
     onChangeName(e) {
         this.setState({
             Name: e.target.value
+        })
+    }
+
+    onChangeEnrollmentKey(e){
+        this.setState({
+            EnrollmentKey:e.target.value
         })
     }
 
@@ -74,19 +79,10 @@ export default class AddExam extends Component {
         });
     }
 
-    onChangeQuestion(e) {
-
-    }
-
-    onChangeAnswer(e) {
-
-    }
-
-    onChangeCorrectAnswer(e) {
-
-    }
-
     generateTable() {
+        let SubmitBtn = document.getElementById('submitBtn');
+        SubmitBtn.disabled = false;
+
         if (document.getElementById('rows') == null) {
 
         } else {
@@ -105,6 +101,7 @@ export default class AddExam extends Component {
                     let QuestionInput = document.createElement('textarea');
                     QuestionInput.setAttribute('type', 'text');
                     QuestionInput.setAttribute('id', 'Question' + (i + 1));
+                    QuestionInput.setAttribute('required', 'required');
                     let QuestionInputtd = document.createElement('td').appendChild(QuestionInput);
 
                     Questiontr.appendChild(QuestionNametd);
@@ -117,6 +114,7 @@ export default class AddExam extends Component {
                     let Answer1Input = document.createElement('input');
                     Answer1Input.setAttribute('type', 'text');
                     Answer1Input.setAttribute('id', 'Answer' + (i + 1) + ".1");
+                    Answer1Input.setAttribute('required', 'required');
                     let Answer1Inputtd = document.createElement('td').appendChild(Answer1Input);
 
                     Answer1tr.appendChild(Answer1Nametd);
@@ -129,6 +127,7 @@ export default class AddExam extends Component {
                     let Answer2Input = document.createElement('input');
                     Answer2Input.setAttribute('type', 'text');
                     Answer2Input.setAttribute('id', 'Answer' + (i + 1) + ".2");
+                    Answer2Input.setAttribute('required', 'required');
                     let Answer2Inputtd = document.createElement('td').appendChild(Answer2Input);
 
                     Answer2tr.appendChild(Answer2Nametd);
@@ -141,6 +140,7 @@ export default class AddExam extends Component {
                     let Answer3Input = document.createElement('input');
                     Answer3Input.setAttribute('type', 'text');
                     Answer3Input.setAttribute('id', 'Answer' + (i + 1) + ".3");
+                    Answer3Input.setAttribute('required', 'required');
                     let Answer3Inputtd = document.createElement('td').appendChild(Answer3Input);
 
                     Answer3tr.appendChild(Answer3Nametd);
@@ -153,6 +153,7 @@ export default class AddExam extends Component {
                     let Answer4Input = document.createElement('input');
                     Answer4Input.setAttribute('type', 'text');
                     Answer4Input.setAttribute('id', 'Answer' + (i + 1) + ".4");
+                    Answer4Input.setAttribute('required', 'required');
                     let Answer4Inputtd = document.createElement('td').appendChild(Answer4Input);
 
                     Answer4tr.appendChild(Answer4Nametd);
@@ -167,6 +168,7 @@ export default class AddExam extends Component {
                     CorrectAnsInput.setAttribute('min', '1');
                     CorrectAnsInput.setAttribute('max', '4');
                     CorrectAnsInput.setAttribute('id', 'CorrectAnswer' + (i + 1));
+                    CorrectAnsInput.setAttribute('required', 'required');
                     let CorrectAnsInputtd = document.createElement('td').appendChild(CorrectAnsInput);
 
                     CorrectAnstr.appendChild(CorrectAnsNametd);
@@ -217,6 +219,7 @@ export default class AddExam extends Component {
         let ExamObj = {
             Name:this.state.Name,
             Duration:parseInt(this.state.Duration),
+            EnrollmentKey:this.state.EnrollmentKey,
             Module:module,
             AutoGrade:autograde,
             QuestionBank:QuestionBank
@@ -238,6 +241,11 @@ export default class AddExam extends Component {
                             <label className="col-md-6 col-form-label">Name: </label>
                             <input type="text" value={this.state.Name} onChange={this.onChangeName}
                                    placeholder="Exam Name"/>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-md-6 col-form-label">Enrollment Key: </label>
+                            <input type="text" value={this.state.EnrollmentKey} required="required" onChange={this.onChangeEnrollmentKey}
+                                   placeholder="Exam enroll key"/>
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Duration(in Minutes): </label>
@@ -290,7 +298,7 @@ export default class AddExam extends Component {
                         <div id="tableDiv"/>
 
                         <div className="form-group row">
-                            <input type="submit" value="Submit" className="btn btn-primary"/>
+                            <input type="submit" value="Submit" disabled={true} id="submitBtn" className="btn btn-primary"/>
                         </div>
                     </form>
                 </div>

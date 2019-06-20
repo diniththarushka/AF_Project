@@ -10,6 +10,20 @@ import InstructorModuleStats from './Instructor.stats.comp';
 
 export default class InstructorHome extends Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            CurrentTime: new Date().toLocaleString(),
+        }
+    }
+
+    componentDidMount() {
+        setInterval( () => {
+            this.setState({
+                CurrentTime : new Date().toLocaleString()
+            })
+        },1000)
+    }
 
     render() {
         return(
@@ -32,6 +46,9 @@ export default class InstructorHome extends Component{
                                 </li>
                                 <li className="navbar-item">
                                     <Link to="/stats" className="nav-link">Statistics</Link>
+                                </li>
+                                <li style={{position:"absolute",right:10,marginTop:10}} className="navbar-item text-light">
+                                    {this.state.CurrentTime}
                                 </li>
                             </ul>
                         </div>
