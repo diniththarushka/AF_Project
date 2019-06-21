@@ -28,9 +28,7 @@ export default class InstructorModules extends Component{
 
     componentWillMount() {
 
-        sessionStorage.setItem('UserID',"5d0915ee8e5b1447e418f8b7"); //this should be changed after implementing login
-
-        axios.get('http://localhost:4000/modules/').then((response)=>{
+        axios.get('http://localhost:4000/modules/',{withCredentials: true}).then((response)=>{
             let ModuleData = response.data;
 
             this.setState({

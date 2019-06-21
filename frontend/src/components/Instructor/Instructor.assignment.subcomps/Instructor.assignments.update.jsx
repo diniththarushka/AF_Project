@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import axios from 'axios';
 
 export default class InstructorModuleUpdate extends Component{
 
@@ -29,19 +28,30 @@ export default class InstructorModuleUpdate extends Component{
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
 
-        axios.get('http://localhost:4000/assignments/').then((res)=>{
-            this.setState({
-                Assignment:res.data
-            });
-            axios.get('http://localhost:4000/instructors/'+id).then((res)=>{
+        fetch('http://localhost:4000/assignments/',{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res=>res.json())
+            .then(resData => {
                 this.setState({
-                    Modules:res.data.Modules
+                    Assignment:resData
                 });
-            })
+                fetch('http://localhost:4000/instructors/'+id,{
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res=>res.json()).then((resData)=>{
+                    this.setState({
+                        Modules:resData.Modules
+                    });
+                })
 
-        }).catch((err)=>{
-            console.log(err);
-        })
+            });
     }
 
     onChangeName(e){
@@ -69,12 +79,18 @@ export default class InstructorModuleUpdate extends Component{
     }
 
     fillState(id){
-        axios.get('http://localhost:4000/assignments/'+id).then((res)=>{
+        fetch('http://localhost:4000/assignments/'+id,{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res=>res.json()).then((resData)=>{
             this.setState({
                 ID:id,
-                Name:res.data.Name,
-                Module:res.data.Module,
-                Description:res.data.Description,
+                Name:resData.Name,
+                Module:resData.Module,
+                Description:resData.Description,
             })
         })
     }
@@ -106,8 +122,15 @@ export default class InstructorModuleUpdate extends Component{
             Module: this.state.Module,
             DueDate:this.state.DueDate,
         };
-        axios.put('http://localhost:4000/assignments/'+ID,AssignmentObj).then((res)=>{
-            alert(res.data);
+        fetch('http://localhost:4000/assignments/'+ID,{
+            method: 'PUT',
+            credentials: 'include',
+            body:AssignmentObj,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res=>res.json()).then((resData)=>{
+            alert(resData);
         }).catch((err)=>{
             alert(err);
         })

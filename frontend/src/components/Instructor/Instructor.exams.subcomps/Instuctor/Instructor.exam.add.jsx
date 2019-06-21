@@ -34,7 +34,7 @@ export default class AddExam extends Component {
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
 
-        axios.get('http://localhost:4000/Instructors/' + id).then((response) => {
+        axios.get('http://localhost:4000/Instructors/' + id,{withCredentials: true}).then((response) => {
             this.setState({
                 Modules: response.data.Modules
             });
@@ -225,7 +225,7 @@ export default class AddExam extends Component {
             QuestionBank:QuestionBank
         };
 
-        axios.post('http://localhost:4000/exams/',ExamObj).then((res)=>{
+        axios.post('http://localhost:4000/exams/',ExamObj,{withCredentials: true}).then((res)=>{
             alert(res.data);
         })
 

@@ -23,7 +23,7 @@ export default class AddAssignments extends Component {
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
         //hardcoded value until login function integrated
-        axios.get('http://localhost:4000/instructors/'+id).then((response) => {
+        axios.get('http://localhost:4000/instructors/'+id,{withCredentials: true}).then((response) => {
             let resData = response.data;
             this.setState({
                 ModuleArray: resData.Modules
@@ -66,11 +66,11 @@ export default class AddAssignments extends Component {
             Module: document.getElementById('module').value,
             DueDate:this.state.DueDate
         };
-        axios.post('http://localhost:4000/assignments/',Assignment).then((res)=>{
+        axios.post('http://localhost:4000/assignments/',Assignment,{withCredentials: true}).then((res)=>{
             let ID = res.data.ID;
-            axios.get('http://localhost:4000/modules/getByName/'+Assignment.Module).then((response)=>{
+            axios.get('http://localhost:4000/modules/getByName/'+Assignment.Module,{withCredentials: true}).then((response)=>{
                 let Module_ID = response.data.ID;
-                axios.put('http://localhost:4000/modules/addAssignment/'+Module_ID,{Assignments:[ID]})
+                axios.put('http://localhost:4000/modules/addAssignment/'+Module_ID,{Assignments:[ID]},{withCredentials: true})
             });
             alert(res.data.message);
 

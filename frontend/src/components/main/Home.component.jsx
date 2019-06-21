@@ -1,29 +1,116 @@
 import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,Link} from "react-router-dom";
-import LoginOthersComp from "../main/Login.others.comp";
-import LoginAdminComp from './Login.admin.comp';
+import LoginOthersComp from "../main/main.login.components/Login.others.comp";
+import RegisterInstructorComp from './main.register.components/Register.Instructor.comp'
+import LoginAdminComp from "./main.login.components/Login.admin.comp";
+
+import IntstructorHome from '../Instructor/Instructor.Home.comp';
 
 export default class HomeHandler extends Component{
+    constructor(props){
+        super(props);
+
+        this.buttonClickLogout = this.buttonClickLogout.bind(this);
+        this.openUserPortal = this.openUserPortal.bind(this);
+    }
+
+    openUserPortal(){
+        if(sessionStorage.getItem('UserType')){
+            let Type = sessionStorage.getItem('UserType');
+
+            if(Type === 'Instructor'){
+                window.open("/instructor/","_self");
+            }
+        }else{
+            alert('Welcome, to have more access you should login.');
+            window.open("/login","_self");
+        }
+    }
+
+    buttonClickLogout(){
+        sessionStorage.clear();
+        document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        localStorage.removeItem('token');
+        window.open("/login","_self");
+    }
+
+    componentDidMount() {
+        let LoginStatDiv = document.getElementById('LoginStat');
+        console.log(sessionStorage.getItem('UserID'));
+        if(!sessionStorage.getItem('UserID')){
+            let LoginListItem =  document.createElement('li');
+            let LoginText = document.createTextNode('Login');
+            let LinkTag = document.createElement('a');
+            LoginListItem.setAttribute('class','navbar-item');
+            LinkTag.setAttribute('href','/login');
+            LinkTag.setAttribute('class','nav-link');
+            LinkTag.appendChild(LoginText);
+
+            let AdminLoginListItem =  document.createElement('li');
+            let AdminLoginText = document.createTextNode('Admin Login');
+            let AdminLinkTag = document.createElement('a');
+            AdminLoginListItem.setAttribute('class','navbar-item');
+            AdminLinkTag.setAttribute('href','/admin');
+            AdminLinkTag.setAttribute('class','nav-link');
+            AdminLinkTag.appendChild(AdminLoginText);
+
+            LoginListItem.appendChild(LinkTag);
+            AdminLoginListItem.appendChild(AdminLinkTag);
+            LoginStatDiv.appendChild(LoginListItem);
+            LoginStatDiv.appendChild(AdminLoginListItem);
+
+        }else{
+            let UserName = sessionStorage.getItem('UserName');
+            let SubStrings = UserName.split(' ');
+            console.log(SubStrings);
+            let name = SubStrings[0];
+
+            let ListItem =  document.createElement('li');
+            let ListItemBtn =  document.createElement('li');
+            ListItem.setAttribute('class','nav-link');
+            let ParagraphTag = document.createElement('p');
+            let WelcomeText = document.createTextNode('Welcome, '+name);
+            ParagraphTag.appendChild(WelcomeText);
+
+            ListItemBtn.setAttribute('class','nav-link');
+            let LogoutBtn = document.createElement('input');
+            LogoutBtn.setAttribute('class','btn btn-outline-light');
+            LogoutBtn.setAttribute('type','button');
+            LogoutBtn.onclick = ()=>{this.buttonClickLogout()};
+            LogoutBtn.setAttribute('value','Logout');
+            ListItem.appendChild(ParagraphTag);
+            ListItemBtn.appendChild(LogoutBtn);
+            LoginStatDiv.appendChild(ListItem);
+            LoginStatDiv.appendChild(ListItemBtn);
+
+        }
+    }
+
     render() {
         return (
             <Router>
             <div>
+                <form>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <div className="collpase navbar-collapse">
                         <ul className="navbar-nav mr-auto">
                             <li className="navbar-item">
                                 <Link to="/" className="nav-link">Home</Link>
                             </li>
-
-                            <li className="navbar-item" style={{position:"absolute",right:10}}>
-                                <Link to="/admin" className="nav-link">Admin Login</Link>
+                            <li className="navbar-item">
+                                <Link onClick={()=>{this.openUserPortal()}} className="nav-link">My Portal</Link>
                             </li>
+                            <div id="LoginStat" className="navbar-nav mr-auto" style={{position:'absolute',right:10}}>
+                            </div>
                         </ul>
                     </div>
                 </nav>
+                </form>
             </div>
-                <Route path="/" exact component={LoginOthersComp} />
+                <Route path="/login" exact component={LoginOthersComp} />
+                <Route path="/instructor/" exact component={IntstructorHome} />
                 <Route path="/admin" exact component={LoginAdminComp} />
+                <Route path="/register" exact component={RegisterInstructorComp} />
             </Router>
         );
     }
