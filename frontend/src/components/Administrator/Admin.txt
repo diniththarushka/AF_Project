@@ -3,8 +3,8 @@
     "name":"Dulith Perera",
     "contactNo":"0772444679",
     "address":"4/3,Maligawatte Road,Colombo 6,Srilanka",
-    "email":"dulith@gmail.com",
-    "password":"kgb@123"
+    "email":"dulith2002@gmail.com",
+    "password":"dulith@123"
 }
 
 {
@@ -23,6 +23,12 @@
 {
   "email":"vBabuh@gmail.co",
   "password":"vbg@123"
+}
+
+
+{
+  "recieverEmail":"mkvathanan@gmail.com",
+  "recieverPassword":"kgb123@123"
 }
 
 //register url

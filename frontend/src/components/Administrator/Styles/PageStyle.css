@@ -18,8 +18,8 @@ button {
     width:500px;
     margin-left:10%;
     margin-right:10%;
-    top: 900px;
-    left: 585px;
+    top: 700px;
+    left: 720px;
 }
 
 .btn_layout_2{
@@ -47,6 +47,7 @@ button {
 .form_divStyle_CreateInstructor{
 
     margin: auto;
+    textAlign:"left";
     width: 900px;
     height: 900px;
     background-color: yellow;
@@ -143,12 +144,20 @@ button {
 .createIns_layout{
     /*border:1px solid Black;*/
     text-align: left;
+    left:10px;
     position: absolute;
     width:700px;
-    height:550px;
+    height:530px;
     margin-left:10%;
     margin-right:10%;
     top: 95px;
+
+}
+.row_layout{
+    /*border:1px solid Black;*/
+    line-height:14px;
+    margin-left:10%;
+    margin-right:10%;
 
 }
 .createAccount_layout{
@@ -169,11 +178,13 @@ button {
     width:700px;
     margin-left:10%;
     margin-right:10%;
-    top: 712px;
+    top: 620px;
     left: 10px;
 }
-
-
+.cellHeight {
+    height: 10px;
+    width: 100px;
+}
 input[type=text],textarea {
     width: 100%;
     padding: 12px 20px;
@@ -182,7 +193,13 @@ input[type=text],textarea {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
+input[type=radio]{
+    width: 100px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 .pwd{
     width: 100%;
     padding: 12px 20px;
@@ -193,14 +210,14 @@ input[type=text],textarea {
 }
 
 
-.container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-}
+.scroller { border:3px solid black; width:400px; height: 100px; overflow-y: scroll}
 
+.viewScroller { border:3px solid black; width:400px; height: 180px; overflow-y: scroll}
 
 .right-col {
+    border:3px solid black;  overflow-y: scroll
+}
+.right-col_1 {
     flex: 1;
     display: flex;
     justify-content: center;

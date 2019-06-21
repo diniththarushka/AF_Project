@@ -16,6 +16,21 @@ export const registerAdmin = newUser => {
         })
 };
 
+export const sendEmailToAdmin= obj => {
+    return axios
+        .post('http://localhost:4000/Administrators/register', {
+            senderEmail:obj.senderEmail,
+            recieverEmail:obj.recieverEmail,
+            recieverPassword: obj.password
+        })
+        .then(res => {
+            console.log(res.data);
+            console.log('Registered!');
+            return res.data;
+        })
+};
+
+
 export const login = user => {
     return axios
         .post('http://localhost:4000/Administrators/login', {

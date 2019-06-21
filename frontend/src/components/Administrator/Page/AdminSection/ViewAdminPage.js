@@ -19,26 +19,24 @@ class ViewAdminPage extends Component {
               <div  className="page_divStyle">
                   {console.log(this.state.admins)}
                   <h2 className="headStyle">Administrators</h2>
-                  <div className="right-col">
+
                       <table className="page_layout">
                           <tbody>
-                          <tr>
-                              <td>
-                                  <ul style={listStyle}>
-                                      {this.state.admins.map(admin =>
-                                          <li style={linkStyle} key={admin._id}>
-                                              <a  href={'/profile/'.concat(admin._id)} >{admin.name}</a>
-                                        </li>
+                          <div style={{position:"absolute",left:"90px",top:"100px",background:"orange"}}>
+                              <div className="viewScroller">
+                                  {<ul>
+                                      {  this.state.admins.map(admin =>
+                                          <a  href={'/profile/'.concat(admin._id)} ><label style={linkStyle}>{admin.name}</label><br/></a>
                                       )
                                       }
-                                  </ul>
-                              </td>
-                          </tr>
+                                  </ul>}
+                              </div>
+                          </div>
 
                           </tbody>
                       </table>
 
-                  </div>
+
               </div>
         );
     }
@@ -55,8 +53,8 @@ class ViewAdminPage extends Component {
 
 const linkStyle={
     fontSize:'20px',
-    fontStyle:"Bold",
-    color:'Blue',
+    fontWeight:"Bold",
+    color:'Black',
     textDecoration:'underline'
 };
 

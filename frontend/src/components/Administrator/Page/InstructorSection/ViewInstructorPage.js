@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import '../../Styles/PageStyle.css';
-
+// import {getInsList} from '../../Admin.Service';
 
 class ViewInstuctorPage extends Component {
     constructor(props){
@@ -19,34 +19,34 @@ class ViewInstuctorPage extends Component {
                   {console.log(this.state.admins)}
                   <h2 className="headStyle">Instructors</h2>
                   <div className="right-col">
-                      <table className="page_layout">
-                          <tbody>
-                          <tr>
-                              <td>
-                                  <ul style={listStyle}>
-                                      {this.state.admins.map(admin =>
-                                          <li style={linkStyle} key={admin._id}><a href={'/profile/'.concat(admin._id)} >{admin.name}</a></li>
-                                      )
-                                      }
-                                  </ul>
-                              </td>
-                          </tr>
+                      {/*<table className="page_layout">*/}
+                          {/*<tbody>*/}
+                          {/*<tr>*/}
+                              {/*<td>*/}
+                                  {/*<ul style={listStyle}>*/}
+                                      {/*{this.state.admins.map(admin =>*/}
+                                          {/*<li style={linkStyle} key={admin._id}><a href={'/profile/'.concat(admin._id)} >{admin.name}</a></li>*/}
+                                      {/*)*/}
+                                      {/*}*/}
+                                  {/*</ul>*/}
+                              {/*</td>*/}
+                          {/*</tr>*/}
 
-                          </tbody>
-                      </table>
+                          {/*</tbody>*/}
+                      {/*</table>*/}
 
                   </div>
               </div>
         );
     }
     componentWillMount() {
-        getAdminList().then(res=>{
-            let admins=res;
-            console.log(admins);
-            console.log(typeof admins);
-            this.setState({admins:admins})
-
-        })
+        // getInsList().then(res=>{
+        //     let instructors=res;
+        //     console.log( instructors);
+        //     console.log(typeof  instructors);
+        //     this.setState({ instructors:instructors})
+        //
+        // })
     }
 }
 const linkStyle={
@@ -65,4 +65,4 @@ const listStyle={
 
 
 };
-export default ViewAdminPage;
+export default ViewInstuctorPage;

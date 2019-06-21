@@ -6,11 +6,11 @@ var email=express.Router();
 //send email to Administrator
 email.post('/sendAdmin', function (req, res) {
     const output = `
-    <p>Account for Administrator</p>
+    <h2 style="text-decoration:underline">Account for Administrator</h2><br/><br/>
     <h3>New Account Information</h3>
     <ul>  
-      <li>Username: ${req.body.email}</li>
-      <li>password: ${req.body.password}</li>
+      <li>Username: ${req.body.recieverEmail}</li>
+      <li>Password: ${req.body.recieverPassword}</li>
     </ul>
     <h3>Visit University website</h3>
     <p><a href="http://localhost:3000/">http://localhost:3000/</a></p>
@@ -20,8 +20,8 @@ email.post('/sendAdmin', function (req, res) {
     let transporter =nodeMailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'mkvathanan@gmail.com', // generated ethereal user
-            pass: 'Vathanan123'  // generated ethereal password
+            user: 'dulith2002@gmail.com', // generated ethereal user
+            pass: 'dulith@123'  // generated ethereal password
         },
         tls:{
             rejectUnauthorized:false
@@ -30,8 +30,8 @@ email.post('/sendAdmin', function (req, res) {
 
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"Administrator"< mkvathanan@gmail.com>', // sender address
-        to: 'm.kajavathanan@yahoo.com', // list of receivers
+        from: '"Administrator"< dulith2002@gmail.com>', // sender address
+        to: req.body.recieverEmail, // list of receivers
         subject: 'New Account for Administrator', // Subject line
         html: output // html body
     };
@@ -51,11 +51,11 @@ email.post('/sendAdmin', function (req, res) {
 //send email to Instructor
 email.post('/sendIns', function (req, res) {
     const output = `
-    <p>Account for Instructor</p>
+   <h2 style="text-decoration:underline">Account for Instructor</h2><br/><br/>
     <h3>New Account Information</h3>
     <ul>  
-      <li>Username: ${req.body.email}</li>
-      <li>password: ${req.body.password}</li>
+      <li>Username: ${req.body.recieverEmail}</li>
+      <li>Password: ${req.body.recieverPassword}</li>
     </ul>
     <h3>Visit University website</h3>
     <p><a href="http://localhost:3000/">http://localhost:3000/</a></p>
@@ -75,7 +75,7 @@ email.post('/sendIns', function (req, res) {
 
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"Administrator"< mkvathanan@gmail.com>', // sender address
+        from: '"Administrator"< dulith2002@gmail.com>', // sender address
         to: 'm.kajavathanan@yahoo.com', // list of receivers
         subject: 'New Account for Administrator', // Subject line
         html: output // html body

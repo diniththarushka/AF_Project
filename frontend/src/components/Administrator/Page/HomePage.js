@@ -34,7 +34,7 @@ class HomePage extends Component{
                         <div className="userBody">
                             <tbody className="userCell">
                             <tr>
-                                <td ><div><img src={Role} width="60px" height="60px" alt="Role"/></div></td>
+                                <td ><div><img src={Role} width="50px" height="50px" alt="Role"/></div></td>
                                 <td >
 
                                     <select className="userOpt"
@@ -76,6 +76,7 @@ class HomePage extends Component{
                             <option value="null" disabled selected>Course</option>
                             <option value="5">Create Course</option>
                             <option value="6">View Courses</option>
+                            <option value="6">Assign Course to Instructor</option>
                         </select><br/>
 
                     </div>
