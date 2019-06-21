@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Module = require('./Module.model');
 
+const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
+
 router.get('/', (req, res) => {
     Module.find().then((modules) => {
         if (modules.length === 0) {
@@ -148,7 +150,6 @@ router.put('/addAssignment/:id',(req,res)=>{
 
     Module.findById(id).then((module)=>{
         let AssignmentArray = module.Assignments;
-
         if(AssignmentArray.includes(reqBody.Assignments)){
             res.status(500).send('Assignment is already assigned to Module.');
         }else{
@@ -171,7 +172,6 @@ router.delete('/removeAssignment/:id',(req,res)=>{
 
     Module.findById(id).then((module)=>{
         let AssignmentArray = module.Assignments;
-
         if(AssignmentArray.includes(reqBody.Assignments)){
             let index = AssignmentArray.indexOf(reqBody.Assignments);
 

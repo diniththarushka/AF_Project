@@ -19,7 +19,7 @@ const AuthorizationAdmin = (req, res, next) => {
                 req.Type = decoded.Type;
                 let UserType = req.Type.toString();
                 if(UserType === 'Admin')
-                    next();
+                next();
                 else
                     res.status(401).send('Unauthorized: Invalid token')
             }

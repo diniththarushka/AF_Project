@@ -19,7 +19,7 @@ const AuthorizationExamCandidate = (req, res, next) => {
                 req.Type = decoded.Type;
                 let UserType = req.Type.toString();
                 if(UserType === 'ExamCandidate' || UserType === 'Instructor'|| UserType === 'Admin')
-                    next();
+                next();
                 else
                     res.status(401).send('Unauthorized: Invalid token')
             }

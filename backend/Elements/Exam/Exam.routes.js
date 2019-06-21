@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const AuthorizationExamCandidate = require('../../Auth/Exam.auth.middleware');
+const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
+
 const Exam = require('./Exam.model');
 
-router.get('/',(req,res)=>{
+router.get('/',AuthorizationExamCandidate,(req,res)=>{
     Exam.find().then((exams)=>{
         res.status(200).json(exams);
     }).catch((err)=>{
@@ -11,7 +14,7 @@ router.get('/',(req,res)=>{
     })
 });
 
-router.get('/byModule/:name',(req,res)=>{
+router.get('/byModule/:name',AuthorizationExamCandidate,(req,res)=>{
     let name=req.params.name;
     Exam.findOne({Module:name}).then((exams)=>{
         res.status(200).json(exams);
@@ -20,7 +23,7 @@ router.get('/byModule/:name',(req,res)=>{
     })
 });
 
-router.post('/',(req,res)=>{
+router.post('/',AuthorizationAdminInstructor,(req,res)=>{
     let reqObj = req.body;
 
     let ExamObj = new Exam({
@@ -40,7 +43,7 @@ router.post('/',(req,res)=>{
     })
 });
 
-router.put('/updateStatus/:id',(req,res)=>{
+router.put('/updateStatus/:id',AuthorizationExamCandidate,(req,res)=>{
     let id = req.params.id;
     let reqObj = req.body;
     Exam.findByIdAndUpdate(id,{Completed:reqObj.Completed}).then((exam)=>{
