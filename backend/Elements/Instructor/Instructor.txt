@@ -1,0 +1,27 @@
+
+//register
+{
+  "Faculty":["FOC"],
+  "Modules":[
+       "Software Architecture",
+       "Application Frameworks"
+  ],
+  "Name":"Kelly Smith",
+  "Email":"jh@gmail.com",
+  "Password":"john123"
+}
+
+//login
+{
+	"Email":"jh@gmail.com",
+	"Password":"john123"
+}
+
+// register url
+http://localhost:4000/instructors
+
+//login url
+http://localhost:4000/instructors/login
+
+//Retrieve id url
+http://localhost:4000/instructors/5d0bc3a92aa265233ca1f06e  Note: instructor/:id
