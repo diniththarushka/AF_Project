@@ -15,7 +15,7 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    studentid : {
+    studentId : {
         type : String,
         required: true
     },

@@ -17,7 +17,7 @@ router.post('/studentRegister', (req, res) => {
         last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
-        studentid : req.body.studentid,
+        studentId : req.body.studentId,
         created: today
     }
 
@@ -57,7 +57,7 @@ router.post('/studentLogin', (req, res) => {
                         first_name: student.first_name,
                         last_name: student.last_name,
                         email: student.email,
-                        studentid: student.studentid
+                        studentId: student.studentId
                     }
                     let token = jwt.sign(payload, process.env.SECRET_KEY, {
                         expiresIn: 1440
