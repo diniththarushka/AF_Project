@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,Link} from "react-router-dom";
 import LoginOthersComp from "../main/Login.others.comp";
 import LoginAdminComp from './Login.admin.comp';
+import AdminReactRoutes from "../Administrator/AdminReactRoutes";
 
 export default class HomeHandler extends Component{
     render() {
@@ -24,6 +25,7 @@ export default class HomeHandler extends Component{
             </div>
                 <Route path="/" exact component={LoginOthersComp} />
                 <Route path="/admin" exact component={LoginAdminComp} />
+                <AdminReactRoutes/>
             </Router>
         );
     }

@@ -1,0 +1,209 @@
+button {
+    background-color:indianred;
+    font-size:17px;
+    font-weight:bold;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 500px;
+    right:150px;
+    position:absolute;
+}
+
+.btn_layout{
+    /*border:1px solid Black;*/
+    position:absolute;
+    width:500px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 900px;
+    left: 585px;
+}
+
+.btn_layout_2{
+    /*border:1px solid Black;*/
+    position:absolute;
+    width:500px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 900px;
+    left: 585px;
+}
+
+.form_divStyle{
+
+    margin: auto;
+    width: 900px;
+    height: 700px;
+    background-color: yellow;
+    padding:10px;
+    position: absolute;
+    left:100px;
+    right:100px;
+    top: 70px
+}
+.form_divStyle_CreateInstructor{
+
+    margin: auto;
+    width: 900px;
+    height: 900px;
+    background-color: yellow;
+    padding:10px;
+    position: absolute;
+    left:100px;
+    right:100px;
+    top: 70px
+}
+.form_layout{
+    /*border:1px solid Black;*/
+    position: absolute;
+    width:500px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 95px;
+    left: 110px;
+}
+.form_layout_2{
+    /*border:1px solid Black;*/
+    position: absolute;
+    width:500px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 145px;
+    left: 110px;
+}
+
+.cellStyle{
+    margin: auto;
+    line-height:14px;
+}
+.headStyle{
+   text-align:center;
+}
+
+.labelStyle{
+    font-weight:bold;
+    font-size:18px;
+}
+
+.page_divStyle{
+    margin: auto;
+    width: 900px;
+    height:500px;
+    background-color: yellow;
+    padding:10px;
+    position: absolute;
+    left:100px;
+    right:100px;
+    top: 130px
+}
+.profile_divStyle{
+    margin: auto;
+    width: 900px;
+    height: 500px;
+    background-color: yellow;
+    padding:10px;
+    position: absolute;
+    left:100px;
+    right:100px;
+    top: 70px
+}
+
+.page_layout{
+    /*border:1px solid Black;*/
+    text-align:left;
+    position: absolute;
+    font-size:20px;
+    width:800px;
+    height:300px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 36px;
+    left: 70px;
+}
+.cell{
+    height:50px;
+}
+.userPic{
+    position:absolute;
+    left:150px;
+}
+.createAdmin_layout{
+    /*border:1px solid Black;*/
+    text-align: left;
+    position: absolute;
+    width:700px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 95px;
+
+}
+.createIns_layout{
+    /*border:1px solid Black;*/
+    text-align: left;
+    position: absolute;
+    width:700px;
+    height:550px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 95px;
+
+}
+.createAccount_layout{
+    /*border:1px solid Black;*/
+    text-align: left;
+    position: absolute;
+    width:700px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 432px;
+    left: 10px;
+}
+
+.createAccount_layout_2{
+    /*border:1px solid Black;*/
+    text-align: left;
+    position: absolute;
+    width:700px;
+    margin-left:10%;
+    margin-right:10%;
+    top: 712px;
+    left: 10px;
+}
+
+
+input[type=text],textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.pwd{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+
+.right-col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e7e7e7;
+}

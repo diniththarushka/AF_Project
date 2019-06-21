@@ -37,9 +37,13 @@ export default class LoginOthersComp extends Component {
             Password: this.state.Password
         };
 
+        console.log("email: "+Login.Email);
+        console.log("password: "+Login.Password);
+
         axios.post('http://localhost:4000/Instructors/login/',Login).then((res) => {
                 let result = res.data.result;
 
+                console.log("Result: "+result);
                 if (result) {
                     console.log('Instructor available');
                 }else{

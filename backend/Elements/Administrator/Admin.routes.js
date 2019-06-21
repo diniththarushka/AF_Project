@@ -30,7 +30,7 @@ router.post('/register', (req, res) => {
                     adminData.password = hash;
                     Admin.create(adminData)
                         .then(admin => {
-                            res.json({ status: admin.email + ' registered!' })
+                            res.status(200).send({msg:'Registered Sucessfully',data:adminData});
                         })
                         .catch(err => {
                             res.send('error: ' + err)
