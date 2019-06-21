@@ -21,6 +21,9 @@ const AssignmentSchema = mongoose.Schema({
         },
         SubmissionLink:{
             type:String
+        },
+        Marks:{
+            type:Number
         }
     }],
 

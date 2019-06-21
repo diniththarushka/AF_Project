@@ -4,20 +4,36 @@ const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
+const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
+const AuthorizationAdminInstructorStudent = require('../../Auth/AdminInstructorStudent.auth.middleware');
+
 const Student = require("./Student.model")
 router.use(cors())
 
 process.env.SECRET_KEY = 'secret'
 
+router.get('/',AuthorizationAdminInstructor,(req, res) => {
+    Student.find().then((assignments) => {
+        res.status(200).json(assignments);
+    }).catch((err) => {
+        res.status(500).send('Assignment fetching failed. Error: ' + err);
+    })
+});
 
-router.post('/studentRegister', (req, res) => {
+router.post('/studentRegister',AuthorizationAdminInstructorStudent, (req, res) => {
     const today = new Date()
     const studentData = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password,
-        studentId : req.body.studentId,
+        // first_name: req.body.first_name,
+        // last_name: req.body.last_name,
+        // email: req.body.email,
+        // password: req.body.password,
+        // studentId : req.body.studentId,
+
+        first_name: req.body.fName,
+        last_name: req.body.lName,
+        email: req.body.Email,
+        password: req.body.Password,
+        studentId : req.body.StudentId,
         created: today
     }
 
@@ -27,7 +43,7 @@ router.post('/studentRegister', (req, res) => {
         .then(student => {
             if (!student) {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    studentData.password = hash
+                    studentData.Password = hash
                     Student.create(studentData)
                         .then(student => {
                             res.json({ status: student.email + ' registered!' })
@@ -45,7 +61,7 @@ router.post('/studentRegister', (req, res) => {
         })
 });
 
-router.post('/studentLogin', (req, res) => {
+router.post('/studentLogin',AuthorizationAdminInstructorStudent, (req, res) => {
     Student.findOne({
         email: req.body.email
     })
@@ -75,7 +91,7 @@ router.post('/studentLogin', (req, res) => {
         })
 })
 
-router.get('/profile', (req, res) => {
+router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
     var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
 
     Student.findOne({
