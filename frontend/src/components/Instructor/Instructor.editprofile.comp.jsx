@@ -23,7 +23,7 @@ export default class InstructorEditProfile extends Component{
     componentWillMount() {
        let id = sessionStorage.getItem('UserID');
 
-       axios.get('http://localhost:4000/instructors/'+id).then((res)=>{
+       axios.get('http://localhost:4000/instructors/'+id,{withCredentials: true}).then((res)=>{
            let resData = res.data;
            this.setState({
                Updated:false,
@@ -71,7 +71,7 @@ export default class InstructorEditProfile extends Component{
                 Email:this.state.Email,
                 Password:this.state.Password
             };
-            axios.put('http://localhost:4000/instructors/update/'+id,UpdateInsObj).then((res)=>{
+            axios.put('http://localhost:4000/instructors/update/'+id,UpdateInsObj,{withCredentials: true}).then((res)=>{
                 alert(res.data);
             }).catch((err)=>{
                 alert('Error'+err);

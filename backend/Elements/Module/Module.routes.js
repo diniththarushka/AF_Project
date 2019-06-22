@@ -148,7 +148,6 @@ router.put('/addAssignment/:id',(req,res)=>{
 
     Module.findById(id).then((module)=>{
         let AssignmentArray = module.Assignments;
-
         if(AssignmentArray.includes(reqBody.Assignments)){
             res.status(500).send('Assignment is already assigned to Module.');
         }else{
@@ -171,7 +170,6 @@ router.delete('/removeAssignment/:id',(req,res)=>{
 
     Module.findById(id).then((module)=>{
         let AssignmentArray = module.Assignments;
-
         if(AssignmentArray.includes(reqBody.Assignments)){
             let index = AssignmentArray.indexOf(reqBody.Assignments);
 

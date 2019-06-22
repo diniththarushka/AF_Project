@@ -20,7 +20,7 @@ export default class AssignmentSubmissions extends Component {
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
 
-        axios.get('http://localhost:4000/instructors/' + id).then((res) => {
+        axios.get('http://localhost:4000/instructors/' + id,{withCredentials: true}).then((res) => {
             let instructor = res.data;
             this.setState({
                 Modules: instructor.Modules
@@ -41,7 +41,7 @@ export default class AssignmentSubmissions extends Component {
 
     populateTable(value) {
         if (value) {
-            axios.get('http://localhost:4000/assignments/getByName/' + value).then((res) => {
+            axios.get('http://localhost:4000/assignments/getByName/' + value,{withCredentials: true}).then((res) => {
                 let resData = res.data;
                 this.setState({
                     Submissions: resData.Submissions
@@ -54,12 +54,12 @@ export default class AssignmentSubmissions extends Component {
     populateSubmissions(value) {
         if (value) {
 
-            axios.get('http://localhost:4000/modules/getByName/' + value).then((res) => {
+            axios.get('http://localhost:4000/modules/getByName/' + value,{withCredentials: true}).then((res) => {
                 let Module_ID = res.data.ID;
                 axios.get('http://localhost:4000/modules/' + Module_ID).then((response) => {
                     response.data.Assignments.forEach((element) => {
                         if (element) {
-                            axios.get('http://localhost:4000/assignments/' + element).then((res) => {
+                            axios.get('http://localhost:4000/assignments/' + element,{withCredentials: true}).then((res) => {
                                 this.setState({
                                     Assignments: this.state.Assignments.concat(res.data.Name)
                                 })
@@ -112,7 +112,7 @@ export default class AssignmentSubmissions extends Component {
                             {
 
                                 this.state.Submissions.map((subs,i)=>(
-                                    <tr>
+                                    <tr key={i}>
                                         <td >{subs.Student}</td>
                                         <td >{subs.SubmissionLink}</td>
                                     </tr>

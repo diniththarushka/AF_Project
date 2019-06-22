@@ -1,5 +1,6 @@
 const mongoose = require('../../_Database/dbconfig');
 
+
 const InstructorSchema = new mongoose.Schema({
 
     Name: {
@@ -18,5 +19,6 @@ const InstructorSchema = new mongoose.Schema({
     },
     Modules: []
 });
+
 
 module.exports = mongoose.model('Instructor',InstructorSchema);

@@ -20,7 +20,7 @@ export default class ViewMarks extends Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:4000/marks/').then((res) => {
+        axios.get('http://localhost:4000/marks/',{withCredentials:true}).then((res) => {
             this.setState({
                 Marks: res.data
             })

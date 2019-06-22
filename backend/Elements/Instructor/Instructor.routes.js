@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Instructor = require('./Instructor.model');
 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
+const AuthorizationAdmin = require('../../Auth/Admin.auth.middleware');
+
 router.get('/', (req, res) => {
     Instructor.find().then((instructors) => {
         res.status(200).json(instructors);
@@ -10,20 +16,40 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/auth',(req,res)=>{
+    const secret = 'university';
     let reqBody = req.body;
-    Instructor.findOne({
-        Email: reqBody.Email,
-        Password: reqBody.Password
-    }).then((user) => {
-        if (user)
-            res.status(200).json({result: true});
-        else
-            res.status(200).json({result: false});
-    }).catch(() => {
-        res.status(500).json({result: false});
-    })
+   Instructor.findOne({Email: reqBody.Email}).then((user)=>{
+       if(user){
+           bcrypt.compare(reqBody.Password,user.Password,(err,passwordsame)=>{
+               if(err){
+                   res.status(500).send('Login Failed')
+               }else{
+                   if(passwordsame){
+                       //Token Issuing
+                       const payload = {
+                           Email:reqBody.Email,
+                           Type:'Instructor'
+                       };
+
+                       const token = jwt.sign(payload,secret,{expiresIn: '1h'});
+                       res.cookie('token',token,{httpOnly:false});
+                       res.status(200).json(user);
+                   }else
+                       res.status(200).json();
+               }
+           });
+       }else{
+           res.status(500).send('User records not found');
+       }
+   }).catch((err)=>{
+       if(err){
+           res.status(500).send('User fetching failed');
+       }
+   })
 });
+
+
 
 router.get('/:id', (req, res) => {
     let id = req.params.id;
@@ -34,7 +60,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/',AuthorizationAdmin, (req, res) => {
 
     let reqObj = req.body;
     let InstructorObj = new Instructor({
@@ -51,7 +77,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id',AuthorizationAdminInstructor, (req, res) => {
     let id = req.params.id;
     let reqObj = req.body;
     let InstructorObj = {
@@ -68,7 +94,7 @@ router.put('/:id', (req, res) => {
     })
 });
 
-router.put('/update/:id', (req, res) => {
+router.put('/update/:id',AuthorizationAdminInstructor, (req, res) => {
     let id = req.params.id;
     let reqObj = req.body;
     let InstructorObj = {
@@ -83,7 +109,7 @@ router.put('/update/:id', (req, res) => {
     })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id',AuthorizationAdmin, (req, res) => {
     let id = req.params.id;
     Instructor.findByIdAndDelete(id).then(() => {
         res.status(200).send('Instructor deleted successfully');
@@ -92,7 +118,7 @@ router.delete('/:id', (req, res) => {
     })
 });
 
-router.delete('/deleteModule/:id', (req, res) => { //for deleting modules of the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.delete('/deleteModule/:id',AuthorizationAdminInstructor, (req, res) => { //for deleting modules of the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let ModulesUpd = [];
@@ -116,7 +142,7 @@ router.delete('/deleteModule/:id', (req, res) => { //for deleting modules of the
     })
 });
 
-router.put('/addModule/:id', (req, res) => {       //for adding modules to the schema element array one by one(should send req as {"Module":"module name"})
+router.put('/addModule/:id',AuthorizationAdminInstructor, (req, res) => {       //for adding modules to the schema element array one by one(should send req as {"Module":"module name"})
     let id = req.params.id;
     let reqBody = req.body;
     let ModulesUpd = [];
@@ -138,7 +164,7 @@ router.put('/addModule/:id', (req, res) => {       //for adding modules to the s
     })
 });
 
-router.delete('/deleteFaculty/:id', (req, res) => { //for deleting multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.delete('/deleteFaculty/:id',AuthorizationAdminInstructor, (req, res) => { //for deleting multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let FacultiesUpd = [];
@@ -162,7 +188,7 @@ router.delete('/deleteFaculty/:id', (req, res) => { //for deleting multiple facu
     })
 });
 
-router.put('/addFaculty/:id', (req, res) => {       //for adding multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
+router.put('/addFaculty/:id',AuthorizationAdminInstructor, (req, res) => {       //for adding multiple faculties to the schema element array one by one(should send req as {"Faculty":"faculty name"})
     let id = req.params.id;
     let reqBody = req.body;
     let FacultiesUpd = [];

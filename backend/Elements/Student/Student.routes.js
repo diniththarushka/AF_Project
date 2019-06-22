@@ -1,16 +1,16 @@
-const express = require("express")
-const router = express.Router()
-const cors = require("cors")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+const express = require("express");
+const router = express.Router();
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
 
 const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
 const AuthorizationAdminInstructorStudent = require('../../Auth/AdminInstructorStudent.auth.middleware');
 
-const Student = require("./Student.model")
-router.use(cors())
+const Student = require("./Student.model");
+router.use(cors());
 
-process.env.SECRET_KEY = 'secret'
+process.env.SECRET_KEY = 'university';
 
 router.get('/',AuthorizationAdminInstructor,(req, res) => {
     Student.find().then((assignments) => {
@@ -20,32 +20,25 @@ router.get('/',AuthorizationAdminInstructor,(req, res) => {
     })
 });
 
+router.post('/studentRegister', (req, res) => {
+    const today = new Date();
 
-
-router.post('/studentRegister',AuthorizationAdminInstructorStudent, (req, res) => {
-    const today = new Date()
-    const studentData = {
-        // first_name: req.body.first_name,
-        // last_name: req.body.last_name,
-        // email: req.body.email,
-        // password: req.body.password,
-        // studentId : req.body.studentId,
-
-        first_name: req.body.fName,
-        last_name: req.body.lName,
-        email: req.body.Email,
-        password: req.body.Password,
-        studentId : req.body.StudentId,
-        created: today
-    }
 
     Student.findOne({
         email: req.body.email
     })
         .then(student => {
             if (!student) {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    studentData.Password = hash
+                bcrypt.hash(req.body.Password, 10, (err, hash) => {
+
+                    const studentData = {
+                        first_name: req.body.fName,
+                        last_name: req.body.lName,
+                        email: req.body.Email,
+                        password: hash,
+                        studentId : req.body.StudentId,
+                        created: today
+                    };
                     Student.create(studentData)
                         .then(student => {
                             res.json({ status: student.email + ' registered!' })
@@ -63,35 +56,36 @@ router.post('/studentRegister',AuthorizationAdminInstructorStudent, (req, res) =
         })
 });
 
-router.post('/studentLogin',AuthorizationAdminInstructorStudent, (req, res) => {
+router.post('/studentLogin', (req, res) => {
     Student.findOne({
-        email: req.body.email
-    })
-        .then(student => {
+        email: req.body.Email
+    }).then(student => {
             if (student) {
-                if (bcrypt.compareSync(req.body.password, student.password)) {
+                if (bcrypt.compareSync(req.body.Password, student.password)) {
                     const payload = {
                         _id: student._id,
                         first_name: student.first_name,
                         last_name: student.last_name,
                         email: student.email,
-                        studentId: student.studentId
-                    }
+                        studentId: student.studentId,
+                        Type:'Student'
+                    };
                     let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 1440
-                    })
-                    res.send(token)
+                        expiresIn: '1h'
+                    });
+                    res.cookie('token',token,{httpOnly:false});
+                    res.status(200).json(student);
                 } else {
-                    res.json({ error: "Student does not exist" })
+                    res.status(500).json({ error: "Student does not exist" })
                 }
             } else {
-                res.json({ error: "Student does not exist" })
+                res.status(500).json({ error: "Student does not exist" })
             }
         })
         .catch(err => {
-            res.send('error: ' + err)
+            res.status(500).send('error: ' + err)
         })
-})
+});
 
 router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
     var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
@@ -109,32 +103,6 @@ router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
         .catch(err => {
             res.send('error: ' + err)
         })
-})
-
-router.get('/:id', (req, res) => {
-    let id = req.params.id;
-    Student.findById(id).then((student) => {
-        res.status(200).json(student);
-    }).catch((err) => {
-        res.status(500).send('Student fetching failed. Error: ' + err);
-    });
 });
 
-router.put('/update/:id', (req, res) => {
-    let id = req.params.id;
-    let reqObj = req.body;
-    let StudentObj = {
-        first_name: reqObj.first_name,
-        last_name: reqObj.last_name,
-        password:reqObj.password,
-        email: reqObj.email
-    };
-    Student.findByIdAndUpdate(id, StudentObj).then(() => {
-        res.status(200).send('Student updated successfully');
-    }).catch((err) => {
-        res.status(500).send('Student updating failed. Error: ' + err);
-    })
-});
-
-
-module.exports = router
+module.exports = router;
