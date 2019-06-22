@@ -20,6 +20,8 @@ router.get('/',AuthorizationAdminInstructor,(req, res) => {
     })
 });
 
+
+
 router.post('/studentRegister',AuthorizationAdminInstructorStudent, (req, res) => {
     const today = new Date()
     const studentData = {
@@ -108,5 +110,31 @@ router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
             res.send('error: ' + err)
         })
 })
+
+router.get('/:id', (req, res) => {
+    let id = req.params.id;
+    Student.findById(id).then((student) => {
+        res.status(200).json(student);
+    }).catch((err) => {
+        res.status(500).send('Student fetching failed. Error: ' + err);
+    });
+});
+
+router.put('/update/:id', (req, res) => {
+    let id = req.params.id;
+    let reqObj = req.body;
+    let StudentObj = {
+        first_name: reqObj.first_name,
+        last_name: reqObj.last_name,
+        password:reqObj.password,
+        email: reqObj.email
+    };
+    Student.findByIdAndUpdate(id, StudentObj).then(() => {
+        res.status(200).send('Student updated successfully');
+    }).catch((err) => {
+        res.status(500).send('Student updating failed. Error: ' + err);
+    })
+});
+
 
 module.exports = router
