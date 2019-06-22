@@ -16,16 +16,15 @@ export const registerAdmin = newUser => {
         })
 };
 
-export const sendEmailToAdmin= obj => {
+export const sendEmailToAdmin= (sender,reciever) => {
     return axios
-        .post('http://localhost:4000/Administrators/register', {
-            senderEmail:obj.senderEmail,
-            recieverEmail:obj.recieverEmail,
-            recieverPassword: obj.password
+        .post('http://localhost:4000/Emails/sendAdmin', {
+                    sender:sender,
+                    reciever:reciever
         })
         .then(res => {
             console.log(res.data);
-            console.log('Registered!');
+            console.log('Email sent!');
             return res.data;
         })
 };
@@ -74,3 +73,4 @@ export const getAdminList= ()=>{
             console.log(err)
         })
 };
+

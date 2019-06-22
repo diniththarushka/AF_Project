@@ -1,0 +1,29 @@
+{
+     "sender":{
+       "email":"dulith2002@gmail.com",
+       "password":"dulith@123"
+     },
+     "reciever":{
+         "email":"mkvathanan@gmail.com",
+         "password":"kaja@123",
+         "userRole":"Administrator"
+     }
+}
+
+{
+     "sender":{
+       "email":"dulith2002@gmail.com",
+       "password":"dulith@123"
+     },
+     "reciever":{
+         "email":"mkvathanan@gmail.com",
+         "password":"kaja@123",
+         "userRole":"Instructor"
+     }
+}
+
+
+url
+
+http://localhost:4000/Emails/sendAdmin
+http://localhost:4000/Emails/sendIns

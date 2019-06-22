@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Instructor = require('./Instructor.model');
 
+//get Instructors
 router.get('/', (req, res) => {
     Instructor.find().then((instructors) => {
         res.status(200).json(instructors);

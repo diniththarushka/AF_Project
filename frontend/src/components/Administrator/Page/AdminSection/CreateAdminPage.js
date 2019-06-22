@@ -4,8 +4,7 @@ import  '../../Styles/PageStyle.css';
 
 
 import {getProfile, registerAdmin} from '../../Admin.Service';
-import HomePage from "../HomePage";
-import {Route} from "react-router";
+import {sendEmailToAdmin} from  '../../Admin.Service';
 
 const statement=(props)=>{
     console.log(props);
@@ -19,6 +18,7 @@ class CreateAdminPage extends Component {
             super(props);
             this.state={
                 _id:null,
+                profile:null,
                 admin:{
                     name:null,
                     email:null,
@@ -29,7 +29,6 @@ class CreateAdminPage extends Component {
                 }
             };
             this.onChange=this.onChange.bind(this);
-
             this.onClick=this.onClick.bind(this);
     }
     onChange(e){
@@ -46,12 +45,24 @@ class CreateAdminPage extends Component {
 
          console.log(this.state.admin);
          admin=this.state.admin;
+
+
+         let sender={
+             email:"mkvathanan@gmail.com",
+             password:"Vathanan123"
+         };
+        let reciever={
+            email:this.state.admin.email,
+            password:this.state.admin.password,
+            userRole:"Administrator"
+        };
+
+
          registerAdmin(admin).then(res=>{
              console.log(res.data);
          });
-
-        window.location.href="/home/".concat(this.state._id);
-        // this.props.history.push("/createAdminAccount");
+        sendEmailToAdmin(sender,reciever).then((res)=>{console.log(res.data)})
+        // window.location.href="/home/".concat(this.state._id);
     }
     render() {
 
@@ -135,6 +146,10 @@ class CreateAdminPage extends Component {
     componentDidMount() {
         let id=this.props.match.params.id;
         console.log(id);
+        getProfile(id).then(res => {
+            console.log(res.data);
+            this.setState({profile:res.data});
+        });
         this.setState({_id:id});
     }
 }

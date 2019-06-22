@@ -35,9 +35,6 @@ class ProfilePage extends Component
         if(mm<10) {
             mm = '0'+mm
         }
-
-
-
         return  dd + '/' + mm + '/' + yyyy;
 
     };
