@@ -49,9 +49,9 @@ class CreateInstructorPage extends Component {
    onSelection()
     {
         let modules=[];
-        var numberOfCheckedItems=0;
+        var numberOfCheckedItems = 0;
         var checkboxes = document.getElementsByName("module");
-        for(let i =0; i < checkboxes.length; i++)
+        for(var i = 0; i < checkboxes.length; i++)
         {
 
             if(checkboxes[i].checked){
@@ -137,7 +137,7 @@ class CreateInstructorPage extends Component {
                                     <input  type="radio"
                                             value="Faculty of Business"
                                             checked={this.state.faculty === "Faculty of Business"}
-                                            onClick={this.handleChange}
+                                            onChange={this.handleChange}
                                     /> <label className='labelStyle'>Faculty of Business</label><br/>
                                     <input
                                         type="radio"
@@ -163,20 +163,20 @@ class CreateInstructorPage extends Component {
                                 <label style={{left:"10px" ,fontSize:"22px",fontWeight:"bold"}}>Modules</label><br/>
                                 <div className="scroller">
                                     <input name="module" value="Software Architecture" type="checkbox"
-                                         onChange={this.onSelection}
+                                         onClick={this.onSelection}
                                     /> <label className='labelStyle'>Software Architecture</label><br/>
                                     <input name="module" value="Distributed Systems" type="checkbox"
-                                           onChange={this.onSelection}
+                                           onClick={this.onSelection}
                                     /><label className='labelStyle'>Distributed Systems</label><br/>
                                     <input name="module" value="Application Frameworks"  type="checkbox"
-                                           onChange={this.onSelection}
+                                           onClick={this.onSelection}
                                     /><label className='labelStyle'>Application Frameworks</label><br/>
                                     <input name="module" value="Employability Skills Development"   type="checkbox"
-                                           onChange={this.onSelection}
+                                           onClick={this.onSelection}
                                     />
                                     <label className='labelStyle'>Employability Skills Development</label><br/>
                                     <input type="checkbox" name="module" value="SEQPM"
-                                           onChange={this.onSelection}
+                                           onClick={this.onSelection}
                                     /><label className='labelStyle'>SEQPM</label><br/>
                                 </div>
                             </div>
