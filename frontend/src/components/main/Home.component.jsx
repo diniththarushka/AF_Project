@@ -4,7 +4,8 @@ import LoginOthersComp from "../main/main.login.components/Login.others.comp";
 import LoginAdminComp from "./main.login.components/Login.admin.comp";
 import StudentRegisterComp from "./main.register.components/Student.register.comp";
 
-import IntstructorHome from '../Instructor/Instructor.Home.comp';
+import InstructorHome from '../Instructor/Instructor.Home.comp';
+import StudentHome from '../Student/Student.home.comp';
 
 export default class HomeHandler extends Component{
     constructor(props){
@@ -112,7 +113,8 @@ export default class HomeHandler extends Component{
                 </form>
             </div>
                 <Route path="/login" exact component={LoginOthersComp} />
-                <Route path="/instructor/" exact component={IntstructorHome} />
+                <Route path="/Instructor/" exact component={InstructorHome} />
+                <Route path="/Student/" exact component={StudentHome} />
                 <Route path="/admin" exact component={LoginAdminComp} />
                 <Route path="/register" exact component={StudentRegisterComp} />
             </Router>

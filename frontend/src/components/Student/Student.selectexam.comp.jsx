@@ -8,7 +8,7 @@ class StudentSelectexamComp extends Component {
     render() {
         return (
             <div>
-
+                <h3>Available Exams</h3>
             </div>
         );
     }
