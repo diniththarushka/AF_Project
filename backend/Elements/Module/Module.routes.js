@@ -3,8 +3,6 @@ const router = express.Router();
 
 const Module = require('./Module.model');
 
-const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.middleware');
-
 router.get('/', (req, res) => {
     Module.find().then((modules) => {
         if (modules.length === 0) {

@@ -5,6 +5,11 @@ const AuthorizationAdminInstructor = require('../../Auth/AdminInstructor.auth.mi
 const AuthorizationAdminInstructorStudent = require('../../Auth/AdminInstructorStudent.auth.middleware');
 
 const Assignment = require('./Assignment.model');
+const Module = require('../Module/Module.model');
+const Student = require('../Student/Student.model');
+
+const smtpTransport = require('nodemailer-smtp-transport');
+const nodemailer = require("nodemailer");
 
 router.get('/',AuthorizationAdminInstructorStudent,(req, res) => {
     Assignment.find().then((assignments) => {
@@ -88,6 +93,42 @@ router.post('/',AuthorizationAdminInstructor, (req, res) => {
         DueDate: reqObj.DueDate
     });
     AssignmentObj.save().then((data) => {
+        //in here
+        Module.findOne({Name:reqObj.Module}).then((module)=>{
+            let ModuleName = module.Name;
+           if(module.Participants.length>0){
+               module.Participants.forEach((participantID)=>{
+                   Student.findById(participantID).then((student)=>{
+                       let Email = student.email;
+
+                       let transporter = nodemailer.createTransport(smtpTransport({
+                           service: 'Gmail',
+                           auth: {
+                               user: 'university.afproject@gmail.com', // Gmail account credentials
+                               pass: 'af@12345' // Gmail password
+                           },
+                           tls:{
+                               rejectUnauthorized:false
+                           }}));
+                       let mailOptions={
+                           from:'"Univeristy" <university.afproject@gmail.com>',
+                           to:Email,
+                           subject:'New Assignment available | '+ModuleName,
+                           text:"",
+                           html:"<p>" +
+                               "Dear Student,<br/> Please checkout the assignment which has been published few moments ago.</p>"
+                       };
+
+                       transporter.sendMail(mailOptions,(err,info)=>{
+                           if(err){
+                               console.log(err);
+                           }else
+                               console.log('Email sent to : '+Email);
+                       });
+                   })
+               })
+           }
+        });
         res.status(200).json({message: 'Assignment successfully added.', ID: data._id});
     }).catch((err) => {
         res.status(500).send('Assignment adding failed. Error: ' + err);

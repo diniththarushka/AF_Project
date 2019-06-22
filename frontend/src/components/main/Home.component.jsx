@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,Link} from "react-router-dom";
 import LoginOthersComp from "../main/main.login.components/Login.others.comp";
-import RegisterInstructorComp from './main.register.components/Register.Instructor.comp'
 import LoginAdminComp from "./main.login.components/Login.admin.comp";
+import StudentRegisterComp from "./main.register.components/Student.register.comp";
 
 import IntstructorHome from '../Instructor/Instructor.Home.comp';
 
@@ -19,7 +19,9 @@ export default class HomeHandler extends Component{
             let Type = sessionStorage.getItem('UserType');
 
             if(Type === 'Instructor'){
-                window.open("/instructor/","_self");
+                window.open("/Instructor/","_self");
+            }else if(Type === 'Student'){
+                window.open("/Student/","_self");
             }
         }else{
             alert('Welcome, to have more access you should login.');
@@ -35,8 +37,8 @@ export default class HomeHandler extends Component{
     }
 
     componentDidMount() {
+        console.log(sessionStorage);
         let LoginStatDiv = document.getElementById('LoginStat');
-        console.log(sessionStorage.getItem('UserID'));
         if(!sessionStorage.getItem('UserID')){
             let LoginListItem =  document.createElement('li');
             let LoginText = document.createTextNode('Login');
@@ -62,7 +64,6 @@ export default class HomeHandler extends Component{
         }else{
             let UserName = sessionStorage.getItem('UserName');
             let SubStrings = UserName.split(' ');
-            console.log(SubStrings);
             let name = SubStrings[0];
 
             let ListItem =  document.createElement('li');
@@ -98,6 +99,9 @@ export default class HomeHandler extends Component{
                                 <Link to="/" className="nav-link">Home</Link>
                             </li>
                             <li className="navbar-item">
+                                <Link to="/register" className="nav-link">Register</Link>
+                            </li>
+                            <li className="navbar-item">
                                 <Link onClick={()=>{this.openUserPortal()}} className="nav-link">My Portal</Link>
                             </li>
                             <div id="LoginStat" className="navbar-nav mr-auto" style={{position:'absolute',right:10}}>
@@ -110,7 +114,7 @@ export default class HomeHandler extends Component{
                 <Route path="/login" exact component={LoginOthersComp} />
                 <Route path="/instructor/" exact component={IntstructorHome} />
                 <Route path="/admin" exact component={LoginAdminComp} />
-                <Route path="/register" exact component={RegisterInstructorComp} />
+                <Route path="/register" exact component={StudentRegisterComp} />
             </Router>
         );
     }
