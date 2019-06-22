@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import StudentSelectexamComp from "../Student/Student.selectexam.comp";
-import StudentProfileEditComp from "../Student/Student.editprofile.comp";
+
 
 class StudentHomeComp extends Component {
     render() {
@@ -30,7 +30,7 @@ class StudentHomeComp extends Component {
                 <Route path="/Student/" exact component={}/>
                 <Route path="/Student/assignments" exact component={}/>
                 <Route path="/Student/exams" component={StudentSelectexamComp}/>
-                <Route path="/Student/edit-profile" component={StudentProfileEditComp}/>
+                <Route path="/Student/edit-profile" component={}/>
             </Router>
         );
     }
