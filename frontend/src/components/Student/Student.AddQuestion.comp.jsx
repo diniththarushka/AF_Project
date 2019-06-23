@@ -58,7 +58,7 @@ export default class StudentAddQuestionComp extends Component{
 
 
         }
-        axios.post('http://localhost:4000/addQuestion/',AddQuestion).then(resolve=>{
+        axios.post('http://localhost:4000/addQuestion/add/',AddQuestion).then(resolve=>{
             console.log(resolve.data.data);
             this.setState({
                 itNumber:'',

@@ -19,7 +19,7 @@ class ModuleQuestion extends  Component{
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:4000/addQuestion/').then(resolve=>{
+        axios.get('http://localhost:4000/addQuestion/allquestions/').then(resolve=>{
             this.setState({
                 questions : resolve.data.data
             })
