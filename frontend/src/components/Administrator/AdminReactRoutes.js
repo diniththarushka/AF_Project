@@ -12,6 +12,7 @@ import CreateInstructorPage from "./Page/InstructorSection/CreateInstructorPage"
 import ViewInstuctorPage from "./Page/InstructorSection/ViewInstructorPage"
 
 import CreateModulePage from "./Page/ModuleSection/CreateModulePage";
+import ViewModulePage from "./Page/ModuleSection/ViewModulePage";
 
 function AdminReactRoutes(props) {
     return (
@@ -29,8 +30,9 @@ function AdminReactRoutes(props) {
                 <Route path="/InsList/:id" strict component={ ViewInstuctorPage }/>
                 <Route path="/Ins/:id" strict component={InstructorPage}/>
 
-                {/*Instructor Routes*/}
+                {/*Module Routes*/}
                 <Route path="/createModule/:id" strict component={CreateModulePage }/>
+                <Route path="/ModuleList/:id" strict component={ViewModulePage }/>
             </div>
         </Router>
     );

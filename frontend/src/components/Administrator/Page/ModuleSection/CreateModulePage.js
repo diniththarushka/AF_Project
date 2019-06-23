@@ -19,7 +19,7 @@ class CreateModulePage extends Component {
                 Name:null,
                 EnrollmentKey:null,
                 Year:null,
-                Semester:null,
+                Semester:null
 
             },
             Faculty:[],

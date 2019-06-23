@@ -230,13 +230,13 @@ button {
     /*border:1px solid Black;*/
     text-align: left;
     position: absolute;
-    width:437px;
+    width:427px;
 
     height:210px;
     margin-left:10%;
     margin-right:10%;
     top: 471px;
-    left:308px;
+    left:487px;
 }
 .cellHeight {
     height: 10px;

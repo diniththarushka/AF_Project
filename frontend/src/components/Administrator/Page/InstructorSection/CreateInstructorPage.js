@@ -122,7 +122,7 @@ class CreateInstructorPage extends Component {
                 {console.log(this.state.Modules)}
                 {console.log(typeof  this.state.Modules)}
                 <div className="form_divStyle_CreateInstructor">
-                    <h2>Create New Instructor</h2>
+                    <h2 style={{height:"50px",position:"absolute",left:"300px"}}>Create New Instructor</h2>
                     <table className="createIns_layout" >
                         <tbody style={{background:"orange",borderStyle:"solid",borderColor:"black"}}>
                         <tr className="cellHeight" style={{height:"50px"}}><td colSpan="2"><h3 className="headStyle">Instructor Details</h3></td></tr>

@@ -75,7 +75,7 @@ class HomePage extends Component{
                         >
                             <option value="null" disabled selected>Module</option>
                             <option value={"/createModule/".concat(this.state._id)}>Create Module</option>
-                            <option value="6">View Modules</option>
+                            <option value={"/ModuleList/".concat(this.state._id)}>View Modules</option>
                         </select><br/>
 
                     </div>
