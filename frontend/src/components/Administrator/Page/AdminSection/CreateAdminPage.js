@@ -137,7 +137,7 @@ class CreateAdminPage extends Component {
                         </table>
                     </div>
                     <div className="btn_layout">
-                        <button className="button" onClick={this.onClick}>Register</button>
+                        <button className="button"  style={{right:"300px"}} onClick={this.onClick}>Create Administrator</button>
                     </div>
               </div>
 
