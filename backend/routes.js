@@ -10,6 +10,11 @@ const StudentRoutes = require('./Elements/Student/Student.routes');
 const StudentQuestion = require('./Elements/StudentQuestion/StudentQuestion.routes');
 
 
+//Kaja
+const AdminRoutes = require('./Elements/Administrator/Admin.routes');
+const EmailRoutes = require('./Elements/Email/Email.routes');
+
+
 routes.use('/instructors',InstructorRoutes);
 routes.use('/modules',ModuleRoutes);
 routes.use('/assignments',AssignmentRoutes);
@@ -18,5 +23,9 @@ routes.use('/marks',MarkRoutes);
 routes.use('/students',StudentRoutes);
 
 routes.use('/question',StudentQuestion);
+
+//Kaja
+routes.use('/Administrators',AdminRoutes);
+routes.use('/Emails',EmailRoutes);
 
 module.exports = routes;

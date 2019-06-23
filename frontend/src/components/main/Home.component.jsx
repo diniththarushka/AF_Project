@@ -7,6 +7,7 @@ import StudentRegisterComp from "./main.register.components/Student.register.com
 import InstructorHome from '../Instructor/Instructor.Home.comp';
 import StudentHome from '../Student/Student.home.comp';
 import StudentAttemptExam from "../Student/Student.attempt.exam";
+import AdminReactRoutes from "../Administrator/AdminReactRoutes";
 
 export default class HomeHandler extends Component{
 
@@ -122,6 +123,9 @@ export default class HomeHandler extends Component{
                 <Route path="/admin" exact component={LoginAdminComp} />
                 <Route path="/register" exact component={StudentRegisterComp} />
                 <Route path="/attempt_exam" exact component={StudentAttemptExam} />
+
+                {/*Kaja Administratory Directory File*/}
+                <AdminReactRoutes/>
             </Router>
         );
     }
