@@ -6,8 +6,8 @@ export default class LoginAdminComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Username: '',
-            Password: ''
+            email: '',
+            password: ''
         };
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -18,13 +18,13 @@ export default class LoginAdminComp extends Component {
 
     onChangeUsername(e) {
         this.setState({
-            Username: e.target.value
+            email: e.target.value
         })
     }
 
     onChangePassword(e) {
         this.setState({
-            Password: e.target.value
+            password: e.target.value
         })
     }
 
@@ -34,8 +34,8 @@ export default class LoginAdminComp extends Component {
         // let Username = this.state.Username;
         // let Password = this.state.Password;
         const user = {
-            email: this.state.Username,
-            password: this.state.Password
+            email: this.state.email,
+            password: this.state.password
         };
         AdminLogin(user).then(res => {
             if(res!==false){
@@ -57,12 +57,12 @@ export default class LoginAdminComp extends Component {
                     <form style={{marginTop:20}} onSubmit={this.onSubmit}>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Email: </label>
-                            <input type="email" placeholder="Username" value={this.state.Username}
+                            <input type="email" placeholder="Username" value={this.state.email}
                                    onChange={this.onChangeUsername}/>
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Password: </label>
-                            <input type="password" placeholder="Password" value={this.state.Password}
+                            <input type="password" placeholder="Password" value={this.state.password}
                                    onChange={this.onChangePassword}/>
                         </div>
                         <div style={{marginLeft:300}} className="form-group row">
