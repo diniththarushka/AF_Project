@@ -24,10 +24,6 @@ class StudentHomeComp extends Component {
                                 <li className="navbar-item">
                                     <Link to="/Student/exams" className="nav-link">Exams</Link>
                                 </li>
-
-                                <li className="navbar-item">
-                                    <Link to="/Student/attempt_exam" className="nav-link">Attempt Exam</Link>
-                                </li>
                                 <li className="navbar-item">
                                     <Link to="/Student/edit-profile" className="nav-link">Edit Profile</Link>
                                 </li>
