@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+
 export default class LoginOthersComp extends Component {
 
     constructor(props) {
@@ -34,52 +36,50 @@ export default class LoginOthersComp extends Component {
             Email: this.state.Username,
             Password: this.state.Password
         };
-
-        fetch('http://localhost:4000/students/studentLogin/',{
-            method: 'POST',
-            body: JSON.stringify(Login),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((res)=>res.json()).then((resData)=>{
-            if(resData.email && resData.password){
-                sessionStorage.setItem('UserID',resData._id);
-                sessionStorage.setItem('UserName',resData.first_name);
-                sessionStorage.setItem('UserLastName',resData.last_name);
-                sessionStorage.setItem('UserPassword',resData.password);
-                sessionStorage.setItem('UserStudentID',resData.studentId);
-                sessionStorage.setItem('UserEmail',resData.email);
+        console.log(Login);
+        axios.post('http://localhost:4000/students/studentLogin/',Login).then((res)=>{
+            let responseData = res.data;
+            console.log(responseData);
+            if(responseData.email && responseData.password){
+                sessionStorage.setItem('UserID',responseData._id);
+                sessionStorage.setItem('UserName',responseData.first_name);
+                sessionStorage.setItem('UserLastName',responseData.last_name);
+                sessionStorage.setItem('UserPassword',responseData.password);
+                sessionStorage.setItem('UserStudentID',responseData.studentId);
+                sessionStorage.setItem('UserEmail',responseData.email);
                 sessionStorage.setItem('UserType','Student');
+
+                this.setState({
+                    Username: '',
+                    Password: ''
+                });
                 window.open("/Student/","_self");
             }else{
-                fetch('http://localhost:4000/instructors/auth/',{
-                    method: 'POST',
-                    body: JSON.stringify(Login),
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then(res=>res.json())
-                    .then(res => {
-                        console.log(res);
-                        if(res.Email && res.Password){
-                            sessionStorage.setItem('UserID',res._id);
-                            sessionStorage.setItem('UserName',res.Name);
-                            sessionStorage.setItem('UserEmail',res.Email);
-                            sessionStorage.setItem('UserPassword',res.Password);
-                            sessionStorage.setItem('UserType','Instructor');
-                            window.open("/Instructor/","_self");
-                        }else
-                            alert('Login failed. You should register');
-
-                    }).catch((err)=>{
-                    alert('Login failed. You should register');
-                });
+                console.log("No valid student account");
             }
-
         }).catch((err)=>{
-            console.log('here');
-            alert('Login failed. You should register');
+            console.log('hello');
+            axios.post('http://localhost:4000/instructors/auth/',Login,{withCredentials:true}).then(res => {
+                let resData = res.data;
+                console.log(resData);
+                if(resData.Email && resData.Password){
+                    sessionStorage.setItem('UserID',resData._id);
+                    sessionStorage.setItem('UserName',resData.Name);
+                    sessionStorage.setItem('UserEmail',resData.Email);
+                    sessionStorage.setItem('UserPassword',resData.Password);
+                    sessionStorage.setItem('UserType','Instructor');
+                    this.setState({
+                        Username: '',
+                        Password: ''
+                    });
+                    window.open("/Instructor/","_self");
+                }else
+                    alert('Login failed. You should register');
+
+            }).catch((err)=>{
+                console.log(err);
+                alert('Login failed. You should register');
+            });
         });
     }
 

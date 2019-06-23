@@ -20,6 +20,9 @@ const MarksSchema = mongoose.Schema({
     ExamID:{
         type: String,
     },
+    AnswerScript:{
+        type:[]
+    },
     Marks:{
         type:Number
     }

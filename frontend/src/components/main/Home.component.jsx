@@ -6,6 +6,7 @@ import StudentRegisterComp from "./main.register.components/Student.register.com
 
 import InstructorHome from '../Instructor/Instructor.Home.comp';
 import StudentHome from '../Student/Student.home.comp';
+import StudentAttemptExam from "../Student/Student.attempt.exam";
 
 export default class HomeHandler extends Component{
     constructor(props){
@@ -38,7 +39,6 @@ export default class HomeHandler extends Component{
     }
 
     componentDidMount() {
-        console.log(sessionStorage);
         let LoginStatDiv = document.getElementById('LoginStat');
         if(!sessionStorage.getItem('UserID')){
             let LoginListItem =  document.createElement('li');
@@ -103,7 +103,7 @@ export default class HomeHandler extends Component{
                                 <Link to="/register" className="nav-link">Register</Link>
                             </li>
                             <li className="navbar-item">
-                                <Link onClick={()=>{this.openUserPortal()}} className="nav-link">My Portal</Link>
+                                <div onClick={()=>{this.openUserPortal()}}  className="bg-dark nav-link">My Portal</div>
                             </li>
                             <div id="LoginStat" className="navbar-nav mr-auto" style={{position:'absolute',right:10}}>
                             </div>
@@ -117,6 +117,7 @@ export default class HomeHandler extends Component{
                 <Route path="/Student/" exact component={StudentHome} />
                 <Route path="/admin" exact component={LoginAdminComp} />
                 <Route path="/register" exact component={StudentRegisterComp} />
+                <Route path="/attempt_exam" exact component={StudentAttemptExam} />
             </Router>
         );
     }

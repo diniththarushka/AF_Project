@@ -33,10 +33,10 @@ router.post('/auth',(req,res)=>{
                        };
 
                        const token = jwt.sign(payload,secret,{expiresIn: '1h'});
-                       res.cookie('token',token,{httpOnly:false});
+                       res.cookie('token',token);
                        res.status(200).json(user);
                    }else
-                       res.status(200).json();
+                       return res.status(500).send('passwords do not match');
                }
            });
        }else{

@@ -20,11 +20,20 @@ export default class ViewMarks extends Component {
     }
 
     componentWillMount() {
-        axios.get('http://localhost:4000/marks/',{withCredentials:true}).then((res) => {
-            this.setState({
-                Marks: res.data
-            })
-        })
+        let id=sessionStorage.getItem('UserID');
+        axios.get('http://localhost:4000/instructors/'+id).then((res)=>{
+            let Array=res.data.Modules;
+            Array.forEach((module)=>{
+                axios.get('http://localhost:4000/marks/byModule/'+module,{withCredentials:true}).then((resp) => {
+                    this.setState({
+                        Marks: this.state.Marks.concat(resp.data)
+                    });
+                })
+            });
+
+        });
+
+
     }
 
     populateTable() {

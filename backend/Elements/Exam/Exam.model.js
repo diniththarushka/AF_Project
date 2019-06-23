@@ -34,6 +34,7 @@ const ExamSchema = mongoose.Schema({
         Answers: [],
         CorrectAns:Number
     }]
-});
+},{timestamps:true});
+ExamSchema.index({createdAt: 1},{expireAfterSeconds:21600});
 
 module.exports = mongoose.model('Exam',ExamSchema);

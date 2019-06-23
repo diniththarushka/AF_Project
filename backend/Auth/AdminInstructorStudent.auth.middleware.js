@@ -7,7 +7,6 @@ const AuthorizationAdminInstructorStudent = (req, res, next) => {
         req.query.token ||
         req.headers['x-access-token'] ||
         req.cookies.token;
-
     if (!token) {
         res.status(401).send('Unauthorized: No token provided');
     } else {

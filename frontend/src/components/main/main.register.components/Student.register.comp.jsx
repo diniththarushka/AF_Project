@@ -102,7 +102,7 @@ class StudentRegisterComp extends Component {
                                onChange={this.onChangePassword}/>
                     </div>
                     <div style={{marginTop:30,marginLeft: 300}} className="form-group row">
-                        <input type="submit" className="btn btn-primary" value="Login"/>
+                        <input type="submit" className="btn btn-primary" value="Register"/>
                     </div>
                 </form>
             </div>

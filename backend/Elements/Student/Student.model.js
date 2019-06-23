@@ -22,7 +22,8 @@ const StudentSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    Modules:[mongoose.Schema.Types.ObjectId]
 });
 
 module.exports = mongoose.model('Students', StudentSchema);
