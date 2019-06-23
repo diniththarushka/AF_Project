@@ -8,7 +8,7 @@ class ViewInstuctorPage extends Component {
         super(props);
 
         this.state={
-             ins_id:null,
+            ins_id:null,
             instructors:[]
         };
     }
