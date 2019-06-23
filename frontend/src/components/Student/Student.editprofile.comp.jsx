@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
-export default class InsEditProfile extends Component{
+export default class StudentEditProfile extends Component{
 
     constructor(props){
         super(props);
@@ -10,7 +10,7 @@ export default class InsEditProfile extends Component{
             LastName:'',
             Password:'',
             Email:'',
-            StudentId:'',
+            studentId:'',
         };
 
         this.updateStatus = this.updateStatus.bind(this);
@@ -25,7 +25,7 @@ export default class InsEditProfile extends Component{
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
 
-        axios.get('http://localhost:4000/Students/'+id).then((res)=>{
+        axios.put('http://localhost:4000/Students/'+id).then((res)=>{
             let resData = res.data;
             this.setState({
                 Updated:false,
@@ -72,6 +72,13 @@ export default class InsEditProfile extends Component{
         })
     }
 
+    onChangeStudentId(e){
+        this.updateStatus();
+        this.setState({
+            studentId:e.target.value
+        })
+    }
+
     onSubmit(e){
         e.preventDefault();
         let id = sessionStorage.getItem('UserID');
@@ -115,29 +122,14 @@ export default class InsEditProfile extends Component{
                             <input type="email" value={this.state.Email} onChange={this.onChangeEmail}/>
                         </div>
                         <div className="form-group row">
+                            <label className="col-md-6 col-form-label">Student ID: </label>
+                            <input type="email" value={this.state.StudentId} onChange={this.onChangeStudentId}/>
+                        </div>
+                        <div className="form-group row">
                             <label className="col-md-6 col-form-label">Password: </label>
                             <input type="password" value={this.state.Password} onChange={this.onChangePassword} placeholder="*******"/>
                         </div>
-                        <div className="form-group row">
-                            <label className="col-md-6 col-form-label">Module(Update access denied): </label>
-                            <select>
-                                {
-                                    this.state.Module.map((module,i)=>{
-                                        return(<option key={i} value={module}>{module}</option>)
-                                    })
-                                }
-                            </select>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-md-6 col-form-label">Faculty(Update access denied): </label>
-                            <select>
-                                {
-                                    this.state.Faculty.map((module,i)=>{
-                                        return(<option key={i} value={module}>{module}</option>)
-                                    })
-                                }
-                            </select>
-                        </div>
+
                         <div className="container">
                             <input type="submit" className="btn btn-primary" value="Update"/>
                         </div>

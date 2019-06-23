@@ -27,10 +27,10 @@ class StudentHomeComp extends Component {
                         </div>
                     </nav>
                 </div>
-                <Route path="/Student/" exact component={}/>
-                <Route path="/Student/assignments" exact component={}/>
+                <Route path="/Student/" exact component={StudentSelectexamComp}/>
+                <Route path="/Student/assignments" exact component={StudentSelectexamComp}/>
                 <Route path="/Student/exams" component={StudentSelectexamComp}/>
-                <Route path="/Student/edit-profile" component={}/>
+                <Route path="/Student/edit-profile" component={StudentSelectexamComp}/>
             </Router>
         );
     }
