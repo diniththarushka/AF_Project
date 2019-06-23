@@ -14,6 +14,7 @@ router.post('/add',(req,res)=>{
     questions.save().then(resolve=>{
         res.status(200).send({message:"Added successfully",data:resolve})
 
+
     }).catch(err=>{
         res.status(500).send({message:err})
     })

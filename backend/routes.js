@@ -17,6 +17,6 @@ routes.use('/exams',ExamRoutes);
 routes.use('/marks',MarkRoutes);
 routes.use('/students',StudentRoutes);
 
-routes.use('/addQuestion',StudentQuestion);
+routes.use('/question',StudentQuestion);
 
 module.exports = routes;

@@ -1,38 +1,59 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
-const Questions = props=>(
+
+const Question = props=>(
     <tr>
         <td>{props.questions.itNumber}</td>
         <td>{props.questions.module}</td>
         <td>{props.questions.question}</td>
         <td>{props.questions.email}</td>
     </tr>
-)
+);
 class ModuleQuestion extends  Component{
 
     constructor(props){
         super(props);
 
         this.state={
-            questions:[]
-        }
+            Question:[]
+        };
     }
+    // componentDidMount(){
+    //     axios.get('http://localhost:4000/question/allquestions/')
+    //         .then(response => {
+    //             this.setState({ Question : response.data});
+    //         })
+    //         .catch(function (error){
+    //             console.log(error);
+    //         })
+    // }
+    //
+    // allQuestions(){
+    //     return this.state.Question.map(function(object ,i){
+    //         return <questions questions = {object} key = {i} />
+    //     });
+    // }
+
+
     componentDidMount() {
-        axios.get('http://localhost:4000/addQuestion/allquestions/').then(resolve=>{
+        axios.get('http://localhost:4000/question/allquestions/').then(resolve=>{
             this.setState({
-                questions : resolve.data.data
+                Question:resolve.data.data
             })
         }).catch(err=>{
             console.log(err)
         })
     }
+    getCourses(){
+        return this.state.Question.map(function (object , i) {
+            return <Question questions={object} key={i}/>
 
-    getModuleQuestion(){
-        return this.state.questions.map(function(object,i){
-            return <Questions question={object} key={i}/>
         })
     }
+
+
+
     render(){
         return(
             <div className='card'>
@@ -47,7 +68,7 @@ class ModuleQuestion extends  Component{
                         </tr>
                         </thead>
                         <tbody>
-                        {this.getModuleQuestion()}
+                        {this.getCourses()}
                         </tbody>
                     </table>
                 </div>
