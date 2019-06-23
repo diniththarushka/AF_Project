@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {AdminLogin} from '../../Administrator/Services/Admin.Service';
 
 export default class LoginAdminComp extends Component {
 
@@ -30,8 +31,22 @@ export default class LoginAdminComp extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        let Username = this.state.Username;
-        let Password = this.state.Password;
+        // let Username = this.state.Username;
+        // let Password = this.state.Password;
+        const user = {
+            email: this.state.Username,
+            password: this.state.Password
+        };
+        AdminLogin(user).then(res => {
+            if(res!==false){
+                console.log(res.data);
+                console.log(res.data._id);
+                window.location.href="/home/".concat(res.data._id);
+            }else{
+                alert("Error: Please Enter valid username and password");
+            }
+
+        });
     }
 
     render() {
