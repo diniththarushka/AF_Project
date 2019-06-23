@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import StudentSelectexamComp from "../Student/Student.selectexam.comp";
+import StudentDashboard from "../Student/Student.dashboard.comp";
+import StudentEditProfile from "../Student/Student.editprofile.comp";
 
 
 class StudentHomeComp extends Component {
@@ -27,10 +29,10 @@ class StudentHomeComp extends Component {
                         </div>
                     </nav>
                 </div>
-                <Route path="/Student/" exact component={StudentSelectexamComp}/>
+                <Route path="/Student/" exact component={StudentDashboard}/>
                 <Route path="/Student/assignments" exact component={StudentSelectexamComp}/>
                 <Route path="/Student/exams" component={StudentSelectexamComp}/>
-                <Route path="/Student/edit-profile" component={StudentSelectexamComp}/>
+                <Route path="/Student/edit-profile" component={StudentEditProfile}/>
             </Router>
         );
     }
