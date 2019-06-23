@@ -4,11 +4,11 @@ class ViewModulePage extends Component {
     render() {
         return (
             <div className="form_divStyle">
-
-                {/*<div style={{bottom:"200px"}}><button style={{backgroundColor:"blue"}}>Faculty of Computing</button></div>*/}
-                {/*<div style={{bottom:"600px"}}><button style={{backgroundColor:"blue"}}>Faculty of Engineering</button></div>*/}
-                    {/*<button style={{backgroundColor:"blue"}}>Faculty of Business</button>*/}
-                 Test
+                <ul style={{position:"absolute",top:"200px",left:"500px",listStyle:"none"}}>
+                    <li><button style={{width:"200px"}}>Faculty of Computing</button></li>
+                    <li style={{position:"absolute",top:"110px"}}><button style={{width:"200px"}}>Faculty of Engineering</button></li>
+                    <li style={{position:"absolute",top:"110px"}}><button style={{width:"200px"}}>Faculty of Business</button></li>
+                </ul>
             </div>
         );
     }
