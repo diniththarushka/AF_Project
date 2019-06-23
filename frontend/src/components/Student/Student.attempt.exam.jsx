@@ -7,6 +7,8 @@ class StudentAttemptExam extends Component {
         super(props);
 
         this.state = {
+            Countdown:'',
+            Duration:0,
             AG: false,
             CurrentAnswer: '',
             CurrentQuestion: '',
@@ -17,6 +19,7 @@ class StudentAttemptExam extends Component {
         this.onChangeAnswer = this.onChangeAnswer.bind(this);
         this.InvokeQuestion = this.InvokeQuestion.bind(this);
         this.AddAnswer = this.AddAnswer.bind(this);
+        this.setTimer = this.setTimer.bind(this);
         this.Submit = this.Submit.bind(this);
     }
 
@@ -147,9 +150,11 @@ class StudentAttemptExam extends Component {
             axios.get('http://localhost:4000/exams/' + id, {withCredentials: true}).then((res) => {
                 let ExamResponse = res.data;
                 this.setState({
+                    Duration:ExamResponse.Duration,
                     AG: ExamResponse.AutoGrade,
                     QuestionBank: ExamResponse.QuestionBank
                 });
+                this.setTimer(this.state.Duration);
                 if (this.state.QuestionBank.length > 0) {
                     let QBank = this.state.QuestionBank;
                     this.QuestionNumberDivBuilder(QBank.length);
@@ -223,6 +228,25 @@ class StudentAttemptExam extends Component {
         }
     };
 
+    setTimer(mins){
+        let duration = (mins*60*1000);
+        setInterval(()=>{
+
+            if(this.state.Countdown !== 0){
+                duration = duration-1000;
+                let hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((duration % (1000 * 60)) / 1000);
+
+                this.setState({
+                    Countdown:"Time Remaining: "+hours+" : "+minutes+" : "+seconds
+                })
+            }else {
+                this.Submit();
+            }
+        },1000);
+    }
+
     Submit() {
 
         let id = sessionStorage.getItem('ExamID');
@@ -245,6 +269,7 @@ class StudentAttemptExam extends Component {
                 };
                 axios.post('http://localhost:4000/marks/', SubmitMarks, {withCredentials: true}).then((res) => {
                     alert(res.data);
+                    alert('Your marks for :'+ExamName+", is(Marked out of 100%): "+this.state.Marks);
                     alert("Exam Submitted. You'll be logged out now.");
 
                     sessionStorage.clear();
@@ -287,7 +312,8 @@ class StudentAttemptExam extends Component {
                 <h3><u>Online Exam</u></h3>
                 <form>
                     <div id="QuestionNumbers" style={{marginTop: 50}}
-                         className="border border-dark float-lg-left rounded"/>
+                         className="border border-dark float-lg-left bg-light rounded"/>
+
                     <div className="container border border-light bg-dark text-light "
                          style={{marginTop: 50, width: 1000, height: 700}}>
                         <div style={{marginTop: 20, height: 500}} className="container border border-dark">
@@ -331,6 +357,11 @@ class StudentAttemptExam extends Component {
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div className="text-light">
+                                {
+                                    this.state.Countdown
+                                }
                             </div>
                         </div>
                         <input type="button" value="Submit answer" onClick={() => {

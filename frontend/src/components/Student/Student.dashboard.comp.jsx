@@ -8,7 +8,7 @@ const DetailsAll = props => (
         <td><b>{props.detailsall.Year }</b></td>
         <td><b>{props.detailsall.Semester }</b></td>
         <td><b>{props.detailsall.Faculty }</b></td>
-        <td><button className='btn  btn-success'>Enroll Me</button></td>
+        <td><button onClick={()=>{StudentDashboard.enrollStudent(props.detailsall._id)}} className='btn btn-success'>Enroll Me</button></td>
     </tr>
 )
 
@@ -18,13 +18,29 @@ export default class StudentDashboard extends Component {
     constructor(props){
         super(props);
 
-
         this.state = {
             ModulesDt :[]};
 
     }
 
-
+    static enrollStudent(Moduleid){
+        const id = sessionStorage.getItem('UserID');
+        let Participant = {
+            Participants:id
+        };
+        axios.put('http://localhost:4000/modules/addParticipant/'+Moduleid,Participant).then((res)=>{
+            let ModuleNameObj={
+                Module:Moduleid
+            };
+            axios.put('http://localhost:4000/students/enroll/'+id,ModuleNameObj).then((res)=>{
+                alert('Module enrollment success');
+            }).catch((err)=>{
+                alert('Module enrollment failed. Error: '+err);
+            });
+        }).catch((err)=>{
+            alert(err);
+        });
+    }
 
     componentDidMount(){
         axios.get('http://localhost:4000/Modules/')
@@ -49,7 +65,7 @@ export default class StudentDashboard extends Component {
 
                 <h1><b><i> Modules </i></b></h1>
 
-                <table className = "table table-bordered table-hover table-striped" style={{ marinTop:20}}>
+                <table className = "table table-bordered bg-light table-hover table-striped" style={{ marinTop:20}}>
                     <thead>
                     <tr>
                         <th><h2>Name</h2></th>
@@ -57,7 +73,7 @@ export default class StudentDashboard extends Component {
                         <th><h2>Year</h2></th>
                         <th><h2>Semester</h2></th>
                         <th><h2>Faculty</h2></th>
-                        <th><h2>           </h2></th>
+                        <th><h2>Enroll for module</h2></th>
                     </tr>
 
                     </thead>
@@ -67,14 +83,6 @@ export default class StudentDashboard extends Component {
                     <br/>
                     <br/>
                 </table>
-
-
-                <a href="/Student/enrolment" > <button id="btn-1">Enrol Now</button></a>
-
-
-
-
-
             </div>
 
         );

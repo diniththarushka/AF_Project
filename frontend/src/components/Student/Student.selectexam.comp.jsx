@@ -114,7 +114,7 @@ class StudentSelectexamComp extends Component {
                         </select>
                     </div>
                     <div id="examsList" className="container" align="center" style={{marginTop: 50}}>
-                        <table className="table table-hover text-center">
+                        <table className="table table-hover bg-light text-center">
                             <thead>
                             <tr>
                                 <td>Name</td>

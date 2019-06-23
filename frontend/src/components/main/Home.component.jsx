@@ -9,6 +9,7 @@ import StudentHome from '../Student/Student.home.comp';
 import StudentAttemptExam from "../Student/Student.attempt.exam";
 
 export default class HomeHandler extends Component{
+
     constructor(props){
         super(props);
 
@@ -110,7 +111,10 @@ export default class HomeHandler extends Component{
                         </ul>
                     </div>
                 </nav>
+                    <div id="textDiv" />
                 </form>
+
+
             </div>
                 <Route path="/login" exact component={LoginOthersComp} />
                 <Route path="/Instructor/" exact component={InstructorHome} />

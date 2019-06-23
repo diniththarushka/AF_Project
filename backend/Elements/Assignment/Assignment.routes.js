@@ -19,7 +19,7 @@ router.get('/',AuthorizationAdminInstructorStudent,(req, res) => {
     })
 });
 
-router.get('/getByModule/:name',AuthorizationAdminInstructorStudent, (req, res) => {
+router.get('/getByModule/:name', (req, res) => {
     let name = req.params.name;
     Assignment.find({Module: name}).then((assignments) => {
         res.status(200).json(assignments);
@@ -162,12 +162,12 @@ router.delete('/:id',AuthorizationAdminInstructor, (req, res) => {
     })
 });
 
-router.put('/submit/:id',AuthorizationAdminInstructorStudent, (req, res) => {
+router.put('/submit/:id', (req, res) => {
     let id = req.params.id;
     let reqObj = req.body;
     let Submission = {
-        'Student': reqObj.StudentID,
-        'SubmissionLink': reqObj.Link
+        Student: reqObj.StudentID,
+        SubmissionLink: reqObj.Link
     };
 
     Assignment.findById(id).then((assignment) => {

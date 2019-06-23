@@ -65,37 +65,34 @@ router.post('/studentRegister', (req, res) => {
 });
 
 router.post('/studentLogin', (req, res) => {
-    Student.findOne({
-        email: req.body.Email
-    }).then(student => {
-            if (student) {
-                bcrypt.compare(req.body.Password,student.password,(err,same)=>{
-                   if(err){
-                       res.status(500).send(err);
-                   }else{
-                       if(same){
-                           const payload = {
-                               _id: student._id,
-                               first_name: student.first_name,
-                               last_name: student.last_name,
-                               email: student.email,
-                               studentId: student.studentId,
-                               Type:'Student'
-                           };
-                           let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                               expiresIn: '1h'
-                           });
-                           res.cookie('token',token,{httpOnly:false});
-                           res.status(200).json(student);
-                       }else
-                           return res.status(500).send('passwords do not match');
-                   }
-                });
-            }
-        }).catch(err => {
-            console.log(err);
-            res.status(500).send('error: ' + err)
-        })
+    const secret = 'university';
+    let reqBody = req.body;
+    Student.find({email: reqBody.Email}).then((userArr)=>{
+        let user = userArr[0];
+        if(user){
+            bcrypt.compare(reqBody.Password,user.password).then((result)=>{
+                if(result){
+                        //Token Issuing
+                        const payload = {
+                            Email:reqBody.Email,
+                            Type:'Student'
+                        };
+
+                        const token = jwt.sign(payload,secret,{expiresIn: '1h'});
+                        res.cookie('token',token);
+                        res.status(200).json(user);
+                }else{
+                    res.status(500).send('Login Failed passwords mismatch')
+                }
+            });
+        }else{
+            res.status(500).send('User records not found');
+        }
+    }).catch((err)=>{
+        if(err){
+            res.status(500).send('User fetching failed');
+        }
+    })
 });
 
 router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
@@ -137,12 +134,11 @@ router.put('/update/:id', (req, res) => {
 
 router.put('/enroll/:id',(req,res)=>{
     let StudentID = req.params.id;
-
-    Student.findOne(StudentID).then((studentObj)=>{
+    Student.findById(StudentID).then((studentObj)=>{
         let ModulesArray = studentObj.Modules;
-        ModulesArray.concat(req.body.Module);
+        ModulesArray.push(req.body.Module);
 
-        Student.findByIdAndUpdate(StudentID,{Module:ModulesArray}).then((user)=>{
+        Student.findByIdAndUpdate(StudentID,{Modules:ModulesArray}).then((user)=>{
             res.send('Module enrollment complete,  '+user.first_name);
         }).catch((err)=>{
             res.send(err);
@@ -151,4 +147,5 @@ router.put('/enroll/:id',(req,res)=>{
         res.send(err);
     })
 });
+
 module.exports = router;

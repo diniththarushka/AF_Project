@@ -37,7 +37,7 @@ export default class LoginOthersComp extends Component {
             Password: this.state.Password
         };
         console.log(Login);
-        axios.post('http://localhost:4000/students/studentLogin/',Login).then((res)=>{
+        axios.post('http://localhost:4000/students/studentLogin/',Login,{withCredentials:false}).then((res)=>{
             let responseData = res.data;
             console.log(responseData);
             if(responseData.email && responseData.password){
