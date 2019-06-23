@@ -9,6 +9,10 @@ const ExamSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    SubmissionDate:{
+        type:Date,
+        default:Date.now
+    },
     Duration:{
         type: Number,
         required:true
