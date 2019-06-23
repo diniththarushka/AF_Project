@@ -62,7 +62,6 @@ router.get('/:id', (req, res) => {
 
 router.post('/',AuthorizationAdmin, (req, res) => {
 
-
     let reqObj = req.body;
     let InstructorObj = new Instructor({
         Name: reqObj.Name,

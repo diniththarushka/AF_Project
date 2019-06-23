@@ -3,7 +3,7 @@ const CORS = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const routes = require('./routes');
+const routes =require('./routes');
 const app = express();
 
 const PORT = 4000;      //Default PORT for app

@@ -116,6 +116,25 @@ router.get('/profile',AuthorizationAdminInstructorStudent, (req, res) => {
         })
 });
 
+router.put('/update/:id', (req, res) => {
+
+    let id = req.params.id;
+    let reqObj = req.body;
+    let StudentObj = {
+        first_name: reqObj.first_name,
+        last_name: reqObj.last_name,
+        email:reqObj.email,
+        password: reqObj.password.toString(),
+        studentId:reqObj.studentId
+    };
+    Student.findByIdAndUpdate(id, StudentObj).then(() => {
+        res.status(200).send('Student updated successfully');
+    }).catch((err) => {
+        res.status(500).send('Student updating failed. Error: ' + err);
+    })
+});
+
+
 router.put('/enroll/:id',(req,res)=>{
     let StudentID = req.params.id;
 
