@@ -18,7 +18,7 @@ router.post('/add',(req,res)=>{
     }).catch(err=>{
         res.status(500).send({message:err})
     })
-})
+});
 
 router.get('/allquestions',(req,res)=>{
     StudentQuestion.find().then(questions=>{

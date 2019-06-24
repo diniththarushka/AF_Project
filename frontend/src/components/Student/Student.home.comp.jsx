@@ -40,7 +40,6 @@ class StudentHomeComp extends Component {
                 <Route path="/Student/exams" component={StudentSelectexamComp}/>
                 <Route path="/Student/edit-profile" component={StudentEditProfile}/>
                 <Route path="/Student/questions" component={StudentQuestion}/>
-
             </Router>
         );
     }

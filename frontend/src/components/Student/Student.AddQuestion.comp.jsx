@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 
-export default class StudentAddQuestionComp extends Component{
+export default class StudentAddQuestionComp extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
 
-        this.state={
+        this.state = {
 
-            itNumber:'',
-            module:'',
-            question:'',
-            email:''
+            itNumber: '',
+            module: '',
+            question: '',
+            email: ''
 
         };
 
@@ -31,52 +31,58 @@ export default class StudentAddQuestionComp extends Component{
             itNumber: e.target.value
         })
     }
+
     onChangeModule(e) {
         this.setState({
             module: e.target.value
         })
     }
+
     onChangeQuestion(e) {
         this.setState({
             question: e.target.value
         })
     }
+
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
         })
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
 
+        let StudentID = sessionStorage.getItem('UserStudentID');
+        let StudentEmail = sessionStorage.getItem('UserEmail');
         const AddQuestion = {
-            itNumber:this.state.itNumber,
-            module:this.state.module,
-            question:this.state.question,
-            email:this.state.email
+            itNumber: StudentID,
+            module: this.state.module,
+            question: this.state.question,
+            email: StudentEmail
 
 
-        }
-        axios.post('http://localhost:4000/question/add',AddQuestion).then(resolve=>{
-            console.log(resolve.data.data);
+        };
+        console.log(AddQuestion);
+
+        axios.post('http://localhost:4000/question/add', AddQuestion).then(resolve => {
             this.setState({
-                itNumber:'',
-                module:'',
-                question:'',
-                email:''
-
-            })
-        }).catch(err=>{
+                itNumber: '',
+                module: '',
+                question: '',
+                email: ''
+            });
+            alert('Question submitted for the lecturer panel.');
+        }).catch(err => {
             console.log(err)
         })
 
     }
 
     render() {
-        return(
+        return (
 
-            <div>
+            <div className="container bg-dark text-light">
                 <h3>Ask Your Questions </h3>
                 <br/>
                 <br/>
@@ -88,20 +94,14 @@ export default class StudentAddQuestionComp extends Component{
                 <div>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group row">
-                            <label className="col-md-6 col-form-label">IT Number : </label>
-                            <input type="text" placeholder="IT********" value={this.state.itNumber} onChange={this.onChangeItnumber}/>
-                        </div>
-                        <div className="form-group row">
                             <label className="col-md-6 col-form-label">Module Name: </label>
-                            <input type="text" placeholder="Module Name" value={this.state.module} onChange={this.onChangeModule}/>
+                            <input type="text" placeholder="Module Name" value={this.state.module}
+                                   onChange={this.onChangeModule}/>
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Question : </label>
-                            <input type="text" placeholder="Enter Question" value={this.state.question} onChange={this.onChangeQuestion}/>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-md-6 col-form-label">Email : </label>
-                            <input type="text" placeholder="Email" value={this.state.email} onChange={this.onChangeEmail}/>
+                            <textarea style={{width:400}} placeholder="Enter your Question here" value={this.state.question}
+                                      onChange={this.onChangeQuestion}/>
                         </div>
                         <br/>
                         <br/>

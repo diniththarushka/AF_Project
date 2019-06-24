@@ -19,27 +19,11 @@ class ModuleQuestion extends  Component{
             Question:[]
         };
     }
-    // componentDidMount(){
-    //     axios.get('http://localhost:4000/question/allquestions/')
-    //         .then(response => {
-    //             this.setState({ Question : response.data});
-    //         })
-    //         .catch(function (error){
-    //             console.log(error);
-    //         })
-    // }
-    //
-    // allQuestions(){
-    //     return this.state.Question.map(function(object ,i){
-    //         return <questions questions = {object} key = {i} />
-    //     });
-    // }
-
 
     componentDidMount() {
-        axios.get('http://localhost:4000/question/allquestions/').then(resolve=>{
+        axios.get('http://localhost:4000/question/allquestions/').then(res=>{
             this.setState({
-                Question:resolve.data.data
+                Question:res.data.data
             })
         }).catch(err=>{
             console.log(err)
@@ -56,11 +40,11 @@ class ModuleQuestion extends  Component{
 
     render(){
         return(
-            <div className='card'>
-                <div className='card-body'>
-                    <table className='table'>
+            <div >
+                <div style={{marginTop:70}} >
+                    <table className="container bg-dark text-light align-content-center" border={2} >
                         <thead>
-                        <tr className="table-info">
+                        <tr>
                             <th>ITNumber</th>
                             <th>Module</th>
                             <th>Question</th>

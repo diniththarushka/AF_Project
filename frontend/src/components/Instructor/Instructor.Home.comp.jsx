@@ -6,7 +6,6 @@ import InstructorModules from './Instructor.modules.comp';
 import InstructorAssignments from './Instructor.assignments.comp';
 import InstructorExams from './Instructor.exams.comp';
 import InstructorEditProfile from './Instructor.editprofile.comp';
-import InstructorModuleStats from './Instructor.stats.comp';
 import InstructorEvaluateComp from './Instructor.evaluate.comp';
 import ModuleQuestions from './Instructor.Student.Question.comp';
 
@@ -35,7 +34,7 @@ export default class InstructorHome extends Component {
                         <div className="collpase navbar-collapse">
                             <ul className="navbar-nav mr-auto">
                                 <li className="navbar-item">
-                                    <Link to="/Instructor/" className="nav-link">My Modules</Link>
+                                    <Link to="/Instructor/" className="nav-link">Modules</Link>
                                 </li>
                                 <li className="navbar-item">
                                     <Link to="/Instructor/assignments" className="nav-link">Assignments</Link>
@@ -52,9 +51,6 @@ export default class InstructorHome extends Component {
                                 <li className="navbar-item">
                                     <Link to="/Instructor/moduleQuestions" className="nav-link">Module Questions</Link>
                                 </li>
-                                <li className="navbar-item">
-                                    <Link to="/Instructor/stats" className="nav-link">Statistics</Link>
-                                </li>
                                 <li style={{position: "absolute", right: 10, marginTop: 10}}
                                     className="navbar-item text-light">
                                     {this.state.CurrentTime}
@@ -69,7 +65,6 @@ export default class InstructorHome extends Component {
                 <Route path="/Instructor/edit-profile" component={InstructorEditProfile}/>
                 <Route path="/Instructor/moduleQuestions" component={ModuleQuestions}/>
                 <Route path="/Instructor/evaluate" component={InstructorEvaluateComp}/>
-                <Route path="/Instructor/stats" component={InstructorModuleStats}/>
             </Router>
         );
     }

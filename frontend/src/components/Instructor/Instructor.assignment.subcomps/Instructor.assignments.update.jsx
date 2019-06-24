@@ -28,31 +28,32 @@ export default class InstructorModuleUpdate extends Component{
     componentWillMount() {
         let id = sessionStorage.getItem('UserID');
 
-        fetch('http://localhost:4000/assignments/',{
+        fetch('http://localhost:4000/instructors/'+id,{
             method: 'GET',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res=>res.json())
-            .then(resData => {
-                this.setState({
-                    Assignment:resData
-                });
-                fetch('http://localhost:4000/instructors/'+id,{
+        }).then(res=>res.json()).then((resData)=>{
+            let ModulesArray = resData.Modules;
+            ModulesArray.forEach((module)=>{
+                fetch('http://localhost:4000/assignments/getByModule/'+module,{
                     method: 'GET',
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then(res=>res.json()).then((resData)=>{
-                    this.setState({
-                        Modules:resData.Modules
+                }).then(res=>res.json())
+                    .then(resData => {
+                        this.setState({
+                            Assignment:this.state.Assignment.concat(resData)
+                        });
                     });
                 })
 
             });
-    }
+
+        }
 
     onChangeName(e){
         this.setState({
@@ -173,13 +174,7 @@ export default class InstructorModuleUpdate extends Component{
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Module: </label>
-                            <select id="module" onChange={this.onChangeModule}>
-                                {
-                                    this.state.Modules.map((mod, i) => {
-                                        return <option   value={mod} key={i}>{mod}</option>
-                                    })
-                                }
-                            </select>
+                            <input type="text" className="rounded" value={this.state.Module} disabled={true} onChange={this.onChangeModule}/>
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Due Date: </label>
