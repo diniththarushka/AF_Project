@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import {AdminLogin} from '../../Administrator/Services/Admin.Service';
 
 export default class LoginAdminComp extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            Username: '',
-            Password: ''
+            email: '',
+            password: ''
         };
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -17,21 +18,35 @@ export default class LoginAdminComp extends Component {
 
     onChangeUsername(e) {
         this.setState({
-            Username: e.target.value
+            email: e.target.value
         })
     }
 
     onChangePassword(e) {
         this.setState({
-            Password: e.target.value
+            password: e.target.value
         })
     }
 
 
     onSubmit(e) {
         e.preventDefault();
-        let Username = this.state.Username;
-        let Password = this.state.Password;
+        // let Username = this.state.Username;
+        // let Password = this.state.Password;
+        const user = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        AdminLogin(user).then(res => {
+            if(res!==false){
+                console.log(res.data);
+                console.log(res.data._id);
+                window.location.href="/home/".concat(res.data._id);
+            }else{
+                alert("Error: Please Enter valid username and password");
+            }
+
+        });
     }
 
     render() {
@@ -42,12 +57,12 @@ export default class LoginAdminComp extends Component {
                     <form style={{marginTop:20}} onSubmit={this.onSubmit}>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Email: </label>
-                            <input type="email" placeholder="Username" value={this.state.Username}
+                            <input type="email" placeholder="Username" value={this.state.email}
                                    onChange={this.onChangeUsername}/>
                         </div>
                         <div className="form-group row">
                             <label className="col-md-6 col-form-label">Password: </label>
-                            <input type="password" placeholder="Password" value={this.state.Password}
+                            <input type="password" placeholder="Password" value={this.state.password}
                                    onChange={this.onChangePassword}/>
                         </div>
                         <div style={{marginLeft:300}} className="form-group row">

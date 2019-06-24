@@ -1,0 +1,36 @@
+// register json object
+{
+    "name":"Dulith Perera",
+    "contactNo":"0772444679",
+    "address":"4/3,Maligawatte Road,Colombo 6,Srilanka",
+    "email":"dulith2002@gmail.com",
+    "password":"dulith@123"
+}
+{
+    "name":"Vishal Baburaj",
+    "contactNo":"0772444679",
+    "address":"1/3,Renderson Road,Colombo 5,Srilanka",
+    "email":"vBabuh@gmail.com",
+    "password":"vbg123"
+}
+
+//login jsons
+{
+  "email":"dulith@gmail.com",
+  "password":"kgb123@123"
+}
+{
+  "email":"vBabuh@gmail.co",
+  "password":"vbg123"
+}
+
+//register url
+http://localhost:4000/Administrators/register
+
+//login url
+http://localhost:4000/Administrators/login
+
+//retrieve profile url
+http://localhost:4000/Administrators/profile/5d093165417a6a261010e05d       Note: profile/:id
+//retrieve admin list url
+http://localhost:4000/Administrators/adminList
