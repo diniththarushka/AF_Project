@@ -4,8 +4,8 @@
        "password":"dulith@123"
      },
      "reciever":{
-         "email":"mkvathanan@gmail.com",
-         "password":"kaja@123",
+         "email":"venkat2020@gmail.com",
+         "password":"kishoregba@123",
          "userRole":"Administrator"
      }
 }
@@ -16,8 +16,8 @@
        "password":"dulith@123"
      },
      "reciever":{
-         "email":"mkvathanan@gmail.com",
-         "password":"kaja@123",
+         "email":"venkat2020@gmail.com",
+         "password":"kishoregba@123",
          "userRole":"Instructor"
      }
 }
