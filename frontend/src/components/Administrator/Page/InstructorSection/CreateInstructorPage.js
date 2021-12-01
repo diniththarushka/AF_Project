@@ -95,8 +95,8 @@ class CreateInstructorPage extends Component {
         m=this.state.Modules;
 
         let sender={
-            email:"mkvathanan@gmail.com",
-            password:"Vathanan123"
+            email:"venkat@gmail.com",
+            password:"rufus4212"
         };
         let reciever={
             email:this.state.instructor.Email,
