@@ -1,23 +1,23 @@
 {
      "sender":{
-       "email":"dulith2002@gmail.com",
-       "password":"dulith@123"
+       "email":"",
+       "password":""
      },
      "reciever":{
-         "email":"venkat2020@gmail.com",
-         "password":"kishoregba@123",
+         "email":"",
+         "password":"",
          "userRole":"Administrator"
      }
 }
 
 {
      "sender":{
-       "email":"dulith2002@gmail.com",
-       "password":"dulith@123"
+       "email":"",
+       "password":""
      },
      "reciever":{
-         "email":"venkat2020@gmail.com",
-         "password":"kishoregba@123",
+         "email":"",
+         "password":"",
          "userRole":"Instructor"
      }
 }
