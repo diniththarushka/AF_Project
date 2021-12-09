@@ -48,8 +48,8 @@ class CreateAdminPage extends Component {
 
 
          let sender={
-             email:"venkat@gmail.com",
-             password:"rufus4212"
+             email:" ",
+             password:" "
          };
         let reciever={
             email:this.state.admin.email,
